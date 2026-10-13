@@ -129,33 +129,35 @@ class GameProgress extends ChangeNotifier {
   int get bestTotalScore =>
       bestScores.values.fold(0, (sum, score) => sum + score);
 
+  T? _read<T>(String key) {
+    final value = _preferences?.get(key);
+    return value is T ? value : null;
+  }
+
   Future<void> load() async {
     _preferences = await SharedPreferences.getInstance();
-    unlockedLevel = (_preferences?.getInt(_unlockedKey) ?? 1).clamp(1, 999);
-    highestCompletedLevel =
-        (_preferences?.getInt(_completedKey) ?? unlockedLevel - 1).clamp(
-          0,
-          999,
-        );
-    soundEnabled = _preferences?.getBool(_soundKey) ?? true;
-    hapticsEnabled = _preferences?.getBool(_hapticsKey) ?? true;
-    glow = (_preferences?.getInt(_glowKey) ?? 0).clamp(0, 1000000000);
-    dailyStreak = (_preferences?.getInt(_streakKey) ?? 0).clamp(0, 1000000);
-    longestStreak = (_preferences?.getInt(_longestStreakKey) ?? dailyStreak)
-        .clamp(dailyStreak, 1000000);
-    totalWins = (_preferences?.getInt(_winsKey) ?? 0).clamp(0, 1000000000);
-    _lastClaimDay = _preferences?.getString(_lastClaimKey);
-    twilightUnlocked = _preferences?.getBool(_twilightKey) ?? false;
-    selectedTheme =
-        _preferences?.getString(_themeKey) == 'twilight' && twilightUnlocked
+    unlockedLevel = (_read<int>(_unlockedKey) ?? 1).clamp(1, 999);
+    highestCompletedLevel = (_read<int>(_completedKey) ?? unlockedLevel - 1)
+        .clamp(0, 999);
+    soundEnabled = _read<bool>(_soundKey) ?? true;
+    hapticsEnabled = _read<bool>(_hapticsKey) ?? true;
+    glow = (_read<int>(_glowKey) ?? 0).clamp(0, 1000000000);
+    dailyStreak = (_read<int>(_streakKey) ?? 0).clamp(0, 1000000);
+    longestStreak = (_read<int>(_longestStreakKey) ?? dailyStreak).clamp(
+      dailyStreak,
+      1000000,
+    );
+    totalWins = (_read<int>(_winsKey) ?? 0).clamp(0, 1000000000);
+    _lastClaimDay = _read<String>(_lastClaimKey);
+    twilightUnlocked = _read<bool>(_twilightKey) ?? false;
+    selectedTheme = _read<String>(_themeKey) == 'twilight' && twilightUnlocked
         ? 'twilight'
         : 'forest';
     bestScores.clear();
     _rewardHistory.clear();
     try {
-      final saved = jsonDecode(
-        _preferences?.getString(_bestKey) ?? '{}',
-      ) as Map<String, dynamic>;
+      final saved =
+          jsonDecode(_read<String>(_bestKey) ?? '{}') as Map<String, dynamic>;
       for (final entry in saved.entries) {
         final level = int.tryParse(entry.key);
         if (level != null && entry.value is int && entry.value >= 0) {
@@ -166,9 +168,8 @@ class GameProgress extends ChangeNotifier {
       // Corrupt optional stats do not prevent loading the game.
     }
     try {
-      final saved = jsonDecode(
-        _preferences?.getString(_rewardHistoryKey) ?? '[]',
-      ) as List<dynamic>;
+      final saved =
+          jsonDecode(_read<String>(_rewardHistoryKey) ?? '[]') as List<dynamic>;
       for (final item in saved) {
         final record = RewardRecord.fromJson(item);
         if (record != null) _rewardHistory.add(record);

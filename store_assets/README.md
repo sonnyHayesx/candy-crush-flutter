@@ -1,13 +1,13 @@
 # Prismleaf Vale — Play listing package
 
-The images here are artwork and listing assets, not gameplay screenshots. **Phone screenshots are pending** until an Android build can run on a device. Do not upload invented or composited gameplay as screenshots.
+The icon and feature graphic are artwork. Files named `phone_*.png` are unedited captures of the running Android app in an emulator. Review them against the final signed release before uploading. Do not upload invented or composited gameplay as screenshots.
 
 | File | Dimensions | Format | Status |
 | --- | --- | --- | --- |
 | `feature_graphic_1024x500.jpg` | 1024 × 500 | JPEG, no alpha | Created; review layout in Play Console |
 | `play_icon_512.png` | 512 × 512 | 32-bit PNG | Created; review against Play icon mask |
-| `phone_home_*.png` | Device native | PNG | Pending actual device capture |
-| `phone_gameplay_*.png` | Device native | PNG | Pending actual device capture |
+| `phone_home_01.png` | 1080 × 1920 | PNG | Captured from the running app on an Android 17 emulator |
+| `phone_gameplay_01.png` | 720 × 1280 | PNG | Captured after a real match on an Android 17 emulator |
 | `phone_levels_*.png` | Device native | PNG | Pending actual device capture after unlocking levels |
 | `phone_completion_*.png` | Device native | PNG | Pending actual completed level |
 

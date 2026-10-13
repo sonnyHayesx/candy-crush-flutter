@@ -10,15 +10,18 @@ import '../brand/progress.dart';
 class Audio {
   static AudioPlayer? _player;
   static Future<void> _operations = Future.value();
+  static int _generation = 0;
 
   static Future<void> playAsset(AudioType type) {
     if (!GameProgress.instance.soundEnabled) return Future.value();
+    final generation = _generation;
     _operations = _operations.then((_) async {
+      if (generation != _generation) return;
       try {
         final player = _player ??= AudioPlayer();
         await player.stop();
         await player.setAsset('assets/audio/${type.name}.wav');
-        if (GameProgress.instance.soundEnabled) {
+        if (generation == _generation && GameProgress.instance.soundEnabled) {
           unawaited(
             player.play().catchError((Object error) {
               debugPrint('Unable to play sound: $error');
@@ -33,8 +36,13 @@ class Audio {
   }
 
   static Future<void> stop() async {
-    await _operations;
-    await _player?.stop();
+    _generation++;
+    try {
+      await _operations;
+      await _player?.stop();
+    } catch (error) {
+      debugPrint('Unable to stop sound: $error');
+    }
   }
 }
 

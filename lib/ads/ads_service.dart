@@ -103,15 +103,28 @@ class AdsService extends ChangeNotifier {
 
   Future<void> showPrivacyOptions() async {
     if (!_privacyOptionsRequired) return;
+    // Discard ads loaded under the old consent decision before opening the form.
+    _ready = false;
+    _rewardRequestId++;
+    _rewardTimeout?.cancel();
+    _loadingRewarded = false;
+    _rewarded?.dispose();
+    _rewarded = null;
+    notifyListeners();
     final finished = Completer<void>();
-    ConsentForm.showPrivacyOptionsForm((error) {
-      if (error != null) {
-        debugPrint('Privacy options failed: ${error.errorCode}');
-      }
-      finished.complete();
-    });
-    await finished.future;
-    await _refreshConsent();
+    try {
+      ConsentForm.showPrivacyOptionsForm((error) {
+        if (error != null) {
+          debugPrint('Privacy options failed: ${error.errorCode}');
+        }
+        if (!finished.isCompleted) finished.complete();
+      });
+      await finished.future;
+    } catch (error) {
+      debugPrint('Privacy options unavailable: $error');
+    } finally {
+      await _refreshConsent();
+    }
   }
 
   void loadRewarded() {
@@ -170,6 +183,7 @@ class AdsService extends ChangeNotifier {
     final finished = Completer<bool>();
     final attempt = RewardAttempt();
     void finish(RewardedAd shownAd) {
+      if (finished.isCompleted) return;
       shownAd.dispose();
       _showingRewarded = false;
       if (!finished.isCompleted) finished.complete(attempt.finish());

@@ -38,13 +38,78 @@ class _GamePageState extends State<GamePage>
     with SingleTickerProviderStateMixin, WidgetsBindingObserver {
   OverlayEntry? _gameSplash;
   late GameBloc _gameBloc;
-  bool _allowGesture = false;
+  bool _gestureEnabled = false;
+  bool _background = false;
+  bool _moveInProgress = false;
+  bool get _allowGesture =>
+      mounted &&
+      _gestureEnabled &&
+      !_background &&
+      !_paused &&
+      !_interrupted &&
+      !_moveInProgress;
+  set _allowGesture(bool value) => _gestureEnabled = value;
+  final Set<OverlayEntry> _overlays = {};
+  final Set<Completer<dynamic>> _pendingAnimations = {};
+  final Set<Timer> _pendingDelays = {};
+
+  Future<void> _delay(Duration duration) async {
+    if (!mounted) return;
+    final completer = _animationCompleter();
+    late Timer timer;
+    timer = Timer(duration, () {
+      _pendingDelays.remove(timer);
+      _finishAnimation(completer);
+    });
+    _pendingDelays.add(timer);
+    await completer.future;
+  }
+
+  void _insertOverlay(OverlayEntry entry) {
+    if (!mounted) {
+      entry.dispose();
+      return;
+    }
+    _overlays.add(entry);
+    Overlay.of(context).insert(entry);
+  }
+
+  void _removeOverlay(OverlayEntry? entry) {
+    if (entry == null || !_overlays.remove(entry)) return;
+    entry.remove();
+    entry.dispose();
+  }
+
+  Completer<dynamic> _animationCompleter() {
+    final completer = Completer<dynamic>();
+    _pendingAnimations.add(completer);
+    return completer;
+  }
+
+  void _finishAnimation(Completer<dynamic> completer) {
+    _pendingAnimations.remove(completer);
+    if (!completer.isCompleted) completer.complete();
+  }
+
+  void _restoreInput() {
+    if (!mounted) return;
+    _allowGesture = !_gameBloc.isLevelOver;
+    if (_interrupted &&
+        !_background &&
+        !_paused &&
+        _gameSplash == null &&
+        !_gameBloc.isLevelOver) {
+      unawaited(_showPause());
+    }
+  }
+
   StreamSubscription? _gameOverSubscription;
   bool? _gameOverReceived;
   bool _paused = false;
   bool _initialized = false;
   bool _continuedThisAttempt = false;
   bool _continuing = false;
+  bool _openingLevel = false;
   int _earnedGlow = 0;
   bool _interrupted = false;
 
@@ -90,28 +155,38 @@ class _GamePageState extends State<GamePage>
     Audio.stop();
     _gameOverSubscription?.cancel();
     _gameOverSubscription = null;
-    _overlayEntryAnimateSwapTiles?.remove();
-    _overlayEntryFromTile?.remove();
-    _gameSplash?.remove();
+    for (final timer in _pendingDelays) {
+      timer.cancel();
+    }
+    _pendingDelays.clear();
+    for (final entry in _overlays.toList()) {
+      _removeOverlay(entry);
+    }
+    for (final completer in _pendingAnimations.toList()) {
+      _finishAnimation(completer);
+    }
     super.dispose();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+    _background = state != AppLifecycleState.resumed;
     if (state == AppLifecycleState.resumed) {
       if (_interrupted &&
           mounted &&
           !_paused &&
           _gameSplash == null &&
           _gameOverReceived != true) {
-        _interrupted = false;
         WidgetsBinding.instance.addPostFrameCallback((_) {
           if (mounted) _showPause();
         });
       }
     } else {
-      _interrupted = _allowGesture;
-      _allowGesture = false;
+      _interrupted =
+          _interrupted ||
+          (!_paused && _gameSplash == null && _gameOverReceived != true);
+      _removeOverlay(_overlayEntryFromTile);
+      _overlayEntryFromTile = null;
       Audio.stop();
     }
   }
@@ -126,6 +201,7 @@ class _GamePageState extends State<GamePage>
               onPanDown: (DragDownDetails details) => _onPanDown(details),
               onPanStart: _onPanStart,
               onPanEnd: _onPanEnd,
+              onPanCancel: () => _onPanEnd(null),
               onPanUpdate: (DragUpdateDetails details) => _onPanUpdate(details),
               onTap: _onTap,
               onTapUp: _onPanEnd,
@@ -185,7 +261,13 @@ class _GamePageState extends State<GamePage>
   Widget _buildObjectivePanel() => const ObjectivePanel();
 
   Future<void> _showPause() async {
-    if (_paused || _gameOverReceived == true) return;
+    if (!mounted ||
+        _paused ||
+        _gameOverReceived == true ||
+        _gameSplash != null) {
+      return;
+    }
+    _interrupted = false;
     _paused = true;
     _allowGesture = false;
     await showDialog<void>(
@@ -281,6 +363,12 @@ class _GamePageState extends State<GamePage>
   //
   void _onPanDown(DragDownDetails details) {
     if (!_allowGesture) return;
+    _removeOverlay(_overlayEntryFromTile);
+    _overlayEntryFromTile = null;
+    _gestureFromTile = null;
+    _gestureStarted = false;
+    _gestureOffsetStart = null;
+    _gestureFromRowCol = null;
 
     // Determine the [row,col] from touch position
     RowCol rowCol = _rowColFromGlobalPosition(details.globalPosition);
@@ -326,7 +414,7 @@ class _GamePageState extends State<GamePage>
           );
         },
       );
-      Overlay.of(context).insert(_overlayEntryFromTile!);
+      _insertOverlay(_overlayEntryFromTile!);
     }
   }
 
@@ -345,10 +433,9 @@ class _GamePageState extends State<GamePage>
   // The user releases the pointer from the screen
   //
   void _onPanEnd(_) {
-    if (!_allowGesture) return;
     _gestureStarted = false;
     _gestureOffsetStart = null;
-    _overlayEntryFromTile?.remove();
+    _removeOverlay(_overlayEntryFromTile);
     _overlayEntryFromTile = null;
   }
 
@@ -407,9 +494,10 @@ class _GamePageState extends State<GamePage>
 
             // Do not allow the gesture recognition during the animation
             _allowGesture = false;
+            _moveInProgress = true;
 
             // 1. Remove the expanded tile
-            _overlayEntryFromTile?.remove();
+            _removeOverlay(_overlayEntryFromTile);
             _overlayEntryFromTile = null;
 
             // 2. Generate the up/down tiles
@@ -435,6 +523,7 @@ class _GamePageState extends State<GamePage>
                   downTile: downTile,
                   swapAllowed: swapAllowed,
                   onComplete: () async {
+                    if (!mounted) return;
                     // 5. Put back the tiles in the game grid
                     _gameBloc
                             .gameController
@@ -449,7 +538,7 @@ class _GamePageState extends State<GamePage>
                         true;
 
                     // 6. Remove the overlay Entry
-                    _overlayEntryAnimateSwapTiles?.remove();
+                    _removeOverlay(_overlayEntryAnimateSwapTiles);
                     _overlayEntryAnimateSwapTiles = null;
 
                     if (swapAllowed == true) {
@@ -480,6 +569,7 @@ class _GamePageState extends State<GamePage>
                         _animateCombo(comboOne),
                         _animateCombo(comboTwo),
                       ]);
+                      if (!mounted) return;
 
                       // Resolve the combos
                       _gameBloc.gameController.resolveCombo(
@@ -505,6 +595,7 @@ class _GamePageState extends State<GamePage>
 
                       /// Proceed with the falling tiles
                       await _playAllAnimations();
+                      if (!mounted) return;
 
                       /// Once this is all done, we need to recalculate all the possible swaps
                       _gameBloc.gameController.identifySwaps();
@@ -516,15 +607,18 @@ class _GamePageState extends State<GamePage>
                           !_gameBloc.gameController.stillMovesToPlay()) {
                         // No moves left
                         await _showReshufflingSplash();
+                        if (!mounted) return;
                         _gameBloc.gameController.reshuffling();
                         setState(() {});
                       }
                       // Make sure there is a correct delay before refreshing the screen
-                      await Future.delayed(const Duration(milliseconds: 300));
+                      await _delay(const Duration(milliseconds: 300));
+                      if (!mounted) return;
                     }
 
                     // 7. Reset
-                    _allowGesture = !_gameBloc.isLevelOver;
+                    _moveInProgress = false;
+                    _restoreInput();
                     _onPanEnd(null);
                     if (mounted) {
                       setState(() {});
@@ -533,7 +627,7 @@ class _GamePageState extends State<GamePage>
                 );
               },
             );
-            Overlay.of(context).insert(_overlayEntryAnimateSwapTiles!);
+            _insertOverlay(_overlayEntryAnimateSwapTiles!);
           }
         }
       }
@@ -547,6 +641,7 @@ class _GamePageState extends State<GamePage>
     if (_gestureFromTile != null && Tile.isBomb(_gestureFromTile!.type!)) {
       // Prevent the user from playing during the animation
       _allowGesture = false;
+      _moveInProgress = true;
       // Play explosion
       Audio.playAsset(AudioType.bomb);
       if (GameProgress.instance.hapticsEnabled) {
@@ -561,8 +656,10 @@ class _GamePageState extends State<GamePage>
 
       // Rebuild the board and proceed with animations
       WidgetsBinding.instance.addPostFrameCallback((_) async {
+        if (!mounted) return;
         // Proceed with the falling tiles
         await _playAllAnimations();
+        if (!mounted) return;
 
         // Once this is all done, we need to recalculate all the possible swaps
         _gameBloc.gameController.identifySwaps();
@@ -576,10 +673,12 @@ class _GamePageState extends State<GamePage>
             !_gameBloc.gameController.stillMovesToPlay()) {
           // No moves left
           await _showReshufflingSplash();
+          if (!mounted) return;
           _gameBloc.gameController.reshuffling();
           setState(() {});
         }
-        _allowGesture = !_gameBloc.isLevelOver;
+        _moveInProgress = false;
+        _restoreInput();
       });
     }
   }
@@ -595,7 +694,8 @@ class _GamePageState extends State<GamePage>
 
   /// Launch an Animation which returns a Future when completed
   Future<dynamic> _animateCombo(Combo combo) async {
-    final completer = Completer();
+    if (!mounted) return;
+    final completer = _animationCompleter();
     OverlayEntry? overlayEntry;
 
     switch (combo.type) {
@@ -610,18 +710,21 @@ class _GamePageState extends State<GamePage>
             return AnimationComboThree(
               combo: combo,
               onComplete: () {
-                overlayEntry?.remove();
+                _removeOverlay(overlayEntry);
                 overlayEntry = null;
-                completer.complete(null);
+                _finishAnimation(completer);
               },
             );
           },
         );
 
         // Play sound
-        await Audio.playAsset(AudioType.move_down);
+        unawaited(Audio.playAsset(AudioType.move_down));
         if (mounted) {
-          Overlay.of(context).insert(overlayEntry!);
+          _insertOverlay(overlayEntry!);
+        } else {
+          overlayEntry!.dispose();
+          _finishAnimation(completer);
         }
         break;
 
@@ -629,7 +732,7 @@ class _GamePageState extends State<GamePage>
       case ComboType.one:
       case ComboType.two:
         // These type of combos are not possible, therefore directly return
-        completer.complete(null);
+        _finishAnimation(completer);
         break;
 
       default:
@@ -655,19 +758,22 @@ class _GamePageState extends State<GamePage>
               resultingTile: resultingTile!,
               onComplete: () {
                 resultingTile = null;
-                overlayEntry?.remove();
+                _removeOverlay(overlayEntry);
                 overlayEntry = null;
 
-                completer.complete(null);
+                _finishAnimation(completer);
               },
             );
           },
         );
 
         // Play sound
-        await Audio.playAsset(AudioType.swap);
+        unawaited(Audio.playAsset(AudioType.swap));
         if (mounted) {
-          Overlay.of(context).insert(overlayEntry!);
+          _insertOverlay(overlayEntry!);
+        } else {
+          overlayEntry!.dispose();
+          _finishAnimation(completer);
         }
         break;
     }
@@ -678,7 +784,7 @@ class _GamePageState extends State<GamePage>
   // Routine that launches all animations, resulting from a combo
   //
   Future<dynamic> _playAllAnimations() async {
-    final completer = Completer();
+    if (!mounted) return;
 
     /// Determine all animations (and sequence of animations) that
     /// need to be played as a consequence of a combo
@@ -696,6 +802,8 @@ class _GamePageState extends State<GamePage>
 
     // Obtain the animation sequences
     final sequences = animationResolver.getAnimationsSequences();
+    if (sequences.isEmpty) return;
+    final completer = _animationCompleter();
     int pendingSequences = sequences.length;
 
     /// Make all involved cells invisible
@@ -705,6 +813,8 @@ class _GamePageState extends State<GamePage>
 
     /// Make a refresh of the board and the end of which we will play the animations
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+
       /// As the board is now refreshed, it is time to start playing
       /// all the animations
       final overlayEntries = <OverlayEntry>[];
@@ -720,6 +830,7 @@ class _GamePageState extends State<GamePage>
                 level: widget.level,
                 animationSequence: animationSequence,
                 onComplete: () {
+                  if (!mounted) return;
                   // Decrement the number of pending animations
                   pendingSequences--;
 
@@ -730,7 +841,7 @@ class _GamePageState extends State<GamePage>
                   if (pendingSequences == 0) {
                     // Remove all OverlayEntries
                     for (final entry in overlayEntries) {
-                      entry.remove();
+                      _removeOverlay(entry);
                     }
                     _gameBloc.gameController.refreshGridAfterAnimations(
                       animationResolver.resultingGridInTermsOfTileTypes,
@@ -741,7 +852,7 @@ class _GamePageState extends State<GamePage>
                     WidgetsBinding.instance.addPostFrameCallback((_) {
                       // Finally, yield the hand
                       if (!completer.isCompleted) {
-                        completer.complete(null);
+                        _finishAnimation(completer);
                       }
                     });
                     setState(() {});
@@ -752,7 +863,9 @@ class _GamePageState extends State<GamePage>
           ),
         );
       }
-      Overlay.of(context).insertAll(overlayEntries);
+      for (final entry in overlayEntries) {
+        _insertOverlay(entry);
+      }
     });
 
     setState(() {});
@@ -782,11 +895,11 @@ class _GamePageState extends State<GamePage>
         movesLeft: widget.level.movesLeft,
       );
     }
-    await Audio.playAsset(success ? AudioType.win : AudioType.lost);
+    unawaited(Audio.playAsset(success ? AudioType.win : AudioType.lost));
 
     // Since some animations could still be ongoing, let's wait a bit
     // before showing the user that the game is won
-    await Future.delayed(const Duration(seconds: 1));
+    await _delay(const Duration(seconds: 1));
     if (!mounted) return;
 
     // No gesture detection during the splash
@@ -802,7 +915,7 @@ class _GamePageState extends State<GamePage>
           score: _gameBloc.score,
           glowEarned: _earnedGlow,
           onExit: () {
-            _gameSplash?.remove();
+            _removeOverlay(_gameSplash);
             _gameSplash = null;
             Navigator.of(context).pop();
           },
@@ -817,7 +930,7 @@ class _GamePageState extends State<GamePage>
       },
     );
 
-    Overlay.of(context).insert(_gameSplash!);
+    _insertOverlay(_gameSplash!);
   }
 
   Future<void> _continueWithAd() async {
@@ -828,15 +941,18 @@ class _GamePageState extends State<GamePage>
     if (!mounted || !earned) return;
     _continuedThisAttempt = true;
     _gameBloc.addMoves(3);
-    _gameSplash?.remove();
+    _removeOverlay(_gameSplash);
     _gameSplash = null;
     _gameOverReceived = false;
+    _interrupted = false;
     _allowGesture = true;
     setState(() {});
   }
 
   Future<void> _openResultLevel(int number) async {
-    _gameSplash?.remove();
+    if (_openingLevel || !mounted) return;
+    _openingLevel = true;
+    _removeOverlay(_gameSplash);
     _gameSplash = null;
     final next = await _gameBloc.setLevel(number);
     if (!mounted) return;
@@ -850,6 +966,7 @@ class _GamePageState extends State<GamePage>
   // to show the user the objectives
   //
   void _showGameStartSplash(_) {
+    if (!mounted) return;
     // No gesture detection during the splash
     _allowGesture = false;
 
@@ -860,17 +977,17 @@ class _GamePageState extends State<GamePage>
         return GameSplash(
           level: widget.level,
           onComplete: () {
-            _gameSplash?.remove();
+            _removeOverlay(_gameSplash);
             _gameSplash = null;
 
             // allow gesture detection
-            _allowGesture = true;
+            _restoreInput();
           },
         );
       },
     );
 
-    Overlay.of(context).insert(_gameSplash!);
+    _insertOverlay(_gameSplash!);
   }
 
   //
@@ -878,7 +995,8 @@ class _GamePageState extends State<GamePage>
   // and a reshuffling is going to happen
   //
   Future<void> _showReshufflingSplash() async {
-    Completer completer = Completer();
+    if (!mounted) return;
+    final completer = _animationCompleter();
 
     // No gesture detection during the splash
     _allowGesture = false;
@@ -889,20 +1007,20 @@ class _GamePageState extends State<GamePage>
       builder: (BuildContext context) {
         return GameReshufflingSplash(
           onComplete: () {
-            _gameSplash?.remove();
+            _removeOverlay(_gameSplash);
             _gameSplash = null;
 
             // allow gesture detection
-            _allowGesture = true;
+            _restoreInput();
 
             // gives the hand back
-            completer.complete();
+            _finishAnimation(completer);
           },
         );
       },
     );
 
-    Overlay.of(context).insert(_gameSplash!);
+    _insertOverlay(_gameSplash!);
 
     return completer.future;
   }

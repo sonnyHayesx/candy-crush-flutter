@@ -8,6 +8,29 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   test(
+    'malformed saved values fall back without losing valid progress',
+    () async {
+      SharedPreferences.setMockInitialValues({
+        'prismleaf_unlocked_level': 3,
+        'prismleaf_glow': 'broken',
+        'prismleaf_sound_enabled': 42,
+        'prismleaf_daily_streak': -5,
+        'prismleaf_best_scores': '{invalid',
+        'prismleaf_reward_history': '{}',
+      });
+      final progress = GameProgress.forTesting();
+      await progress.load();
+      expect(progress.unlockedLevel, 3);
+      expect(progress.glow, 0);
+      expect(progress.soundEnabled, isTrue);
+      expect(progress.dailyStreak, 0);
+      expect(progress.bestScores, isEmpty);
+      expect(progress.rewardHistory, isEmpty);
+      expect(await progress.claimDaily(), 20);
+    },
+  );
+
+  test(
     'daily reward cannot be claimed twice and streak survives restart',
     () async {
       SharedPreferences.setMockInitialValues({});

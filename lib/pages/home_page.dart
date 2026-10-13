@@ -71,7 +71,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    bottomNavigationBar: const BannerSlot(),
+    bottomNavigationBar:
+        !_loadingLevel && (ModalRoute.isCurrentOf(context) ?? true)
+        ? const BannerSlot()
+        : null,
     body: ValeBackdrop(
       child: SafeArea(
         child: Center(

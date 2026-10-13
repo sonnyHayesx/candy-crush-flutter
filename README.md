@@ -4,6 +4,8 @@ Prismleaf Vale is an offline Android match-three puzzle game. Swap faceted leave
 
 ## Development
 
+Production validation and the publisher handoff are documented in [RELEASE.md](RELEASE.md). Automated checks run in `.github/workflows/validate.yml` with Flutter 3.47.5.
+
 - Flutter 3.47 or newer and Dart 3.13 or newer
 - Android SDK, compatible JDK, and an attached Android device or configured emulator for Android builds
 - `flutter pub get`

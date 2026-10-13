@@ -43,13 +43,13 @@ android {
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     defaultConfig {
         applicationId = "com.jackreachermishra.prismleafvale"
-        manifestPlaceholders = [admobAppId: "ca-app-pub-3940256099942544~3347511713"]
+        manifestPlaceholders += [admobAppId: "ca-app-pub-3940256099942544~3347511713"]
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdk = flutter.minSdkVersion
@@ -71,10 +71,10 @@ android {
 
     buildTypes {
         debug {
-            manifestPlaceholders = [admobAppId: "ca-app-pub-3940256099942544~3347511713"]
+            manifestPlaceholders += [admobAppId: "ca-app-pub-3940256099942544~3347511713"]
         }
         release {
-            manifestPlaceholders = [admobAppId: "ca-app-pub-4138113569115613~5280989015"]
+            manifestPlaceholders += [admobAppId: "ca-app-pub-4138113569115613~5280989015"]
             if (releaseSigningReady) {
                 signingConfig = signingConfigs.release
             }
@@ -84,4 +84,22 @@ android {
 
 flutter {
     source = "../.."
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+    }
+}
+
+// Fail before producing an unsigned artifact that could be mistaken for a release.
+tasks.configureEach { task ->
+    if (task.name == "preReleaseBuild" || task.name == "validateSigningRelease" || task.name == "packageRelease" ||
+        task.name == "signReleaseBundle") {
+        task.doFirst {
+            if (!releaseSigningReady) {
+                throw new GradleException("Release signing is required. Configure android/key.properties using key.properties.example.")
+            }
+        }
+    }
 }
