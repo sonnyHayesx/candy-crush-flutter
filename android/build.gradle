@@ -1,3 +1,15 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        // AGP 9.0 bundles Kotlin 2.2.10; Flutter requires 2.2.20 or newer.
+        // Upgrade the compiler used by built-in Kotlin without applying kotlin-android.
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:2.3.20"
+    }
+}
+
 allprojects {
     repositories {
         google()
@@ -11,6 +23,19 @@ subprojects {
 }
 subprojects {
     project.evaluationDependsOn(":app")
+}
+
+// These Java-only audio plugins still default to the obsolete Java 8 target.
+// Configure their Android DSL after their own build files have been evaluated.
+subprojects { subproject ->
+    if (subproject.name in ["audio_session", "just_audio"]) {
+        subproject.afterEvaluate {
+            subproject.android.compileOptions {
+                sourceCompatibility = JavaVersion.VERSION_17
+                targetCompatibility = JavaVersion.VERSION_17
+            }
+        }
+    }
 }
 
 tasks.register("clean", Delete) {

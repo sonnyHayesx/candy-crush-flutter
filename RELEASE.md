@@ -1,8 +1,21 @@
 # Release verification
 
-Use Flutter **3.47.5**, Dart bundled with that SDK, and JDK 21. CI pins this Flutter version and checks formatting, analysis, tests, and an Android debug build. CI artifacts are for testing only.
+Use Flutter **3.47.7** (Dart **3.13.5**) and JDK 21. Android built-in Kotlin requires Flutter **3.47.0** or newer. CI pins this Flutter version and checks formatting, analysis, tests, and an Android debug build. Newer SDKs satisfy the package constraints, but may change SDK-pinned dependencies. CI artifacts are for testing only.
 
-## Verification recorded 2026-10-13
+## Compatibility validation 2026-10-14
+
+- Follow-up for the WebView Kotlin deletion failure: generated directories had Windows read-only attributes. `tool/build_test_apk.ps1` clears those attributes before dependency resolution and debug packaging. The validation run recreated the WebView Kotlin output successfully, then failed in `JetifyTransform` with Java heap exhaustion while processing the Flutter x64 engine JAR. Disabled Jetifier for the AndroidX dependencies. The subsequent retry was stopped while waiting for a separate shared-SDK `flutter upgrade` to finish; the Jetifier change still needs a completed build. After that upgrade finishes, run the helper again and verify the SDK version against the pinned CI version.
+- Flutter 3.44.9 / Dart 3.12.2: locked dependency resolution, formatting (50 files unchanged), static analysis, and all 26 tests passed again.
+- The installed SDK defines compile and target API 36.
+- Native rebuild troubleshooting: Windows prevented Gradle from replacing generated resources for `audio_session` and `google_mobile_ads`. Cleared generated resource caches and then the app and affected plugin outputs. Full build-directory cleanup was interrupted by a locked `build/reports/problems/problems-report.html` file.
+- JVM crash logs reported insufficient native memory with both the former 4 GiB heap and a reduced 1536 MiB heap. Gradle now uses the reduced heap and at most two workers. The final crash (`android/hs_err_pid19712.log`, ignored by Git) failed to allocate about 1.8 MB of native memory, so reducing the heap alone did not resolve system memory pressure.
+- **Android rebuild remains blocked:** no current APK was produced; the previous APK was removed with the generated app outputs. No new install or emulator smoke test was performed. Free system memory before retrying `flutter build apk --debug`, then install and validate that new APK. An Android 17 emulator was connected, but its existing app is not evidence of this rebuild passing.
+
+## Previous verification recorded 2026-10-13
+
+The native build and emulator results below were obtained with Flutter 3.47.5 before restoring compatibility with the installed Flutter 3.44.9 SDK. Rebuild the release candidate with the selected SDK before device acceptance.
+
+Compatibility recheck on Flutter 3.44.9 / Dart 3.12.2: locked dependency resolution, static analysis, formatting, and all 26 tests passed. The lockfile and CI now target this installed SDK.
 
 - Formatting passed for all 50 Dart files; static analysis reported no issues.
 - All 26 automated tests passed, including lifecycle interruption, animation cleanup, startup recovery, malformed saved progress, and banner removal across covered/replacement routes.
