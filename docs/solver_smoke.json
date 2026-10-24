@@ -1,0 +1,1099 @@
+{
+  "method": "visible-board one-ply heuristic search, epsilon policies; actual production controller and animation resolver",
+  "seed_formula": "100000 + level_id + trial_index * 1009",
+  "coordinate_convention": "zero-based [row,col,toRow,toCol] swap, [row,col] tap; row zero bottom",
+  "assumptions": [
+    "No purchases, ads, extra moves or external boosts.",
+    "Random(seed) on this Dart SDK; controller and resolver share RNG.",
+    "Witness proves one seeded trajectory only; sampled rates are not human completion rates.",
+    "All three agents are simple heuristics, not calibrated human skill models.",
+    "Difficulty score = 100 * (1 - average-policy win rate).",
+    "No minimum-move or universal solvability claim."
+  ],
+  "levels": [
+    {
+      "level_id": 1,
+      "number_of_simulations": 6,
+      "agents": {
+        "beginner": {
+          "simulations": 2,
+          "successful_simulations": 2,
+          "win_rate": 1.0,
+          "mean_moves_used": 7.0,
+          "mean_winning_moves_remaining": 17.0,
+          "runs": [
+            {
+              "seed": 100001,
+              "won": true,
+              "moves_used": 8,
+              "moves_remaining": 16,
+              "reshuffles": 0,
+              "mean_legal_actions": 7.25,
+              "failure_reason": null,
+              "remaining_objectives": {
+                "blue": 0
+              }
+            },
+            {
+              "seed": 101010,
+              "won": true,
+              "moves_used": 6,
+              "moves_remaining": 18,
+              "reshuffles": 0,
+              "mean_legal_actions": 12.666666666666666,
+              "failure_reason": null,
+              "remaining_objectives": {
+                "blue": 0
+              }
+            }
+          ]
+        },
+        "average": {
+          "simulations": 2,
+          "successful_simulations": 2,
+          "win_rate": 1.0,
+          "mean_moves_used": 5.5,
+          "mean_winning_moves_remaining": 18.5,
+          "runs": [
+            {
+              "seed": 100001,
+              "won": true,
+              "moves_used": 8,
+              "moves_remaining": 16,
+              "reshuffles": 0,
+              "mean_legal_actions": 7.25,
+              "failure_reason": null,
+              "remaining_objectives": {
+                "blue": 0
+              }
+            },
+            {
+              "seed": 101010,
+              "won": true,
+              "moves_used": 3,
+              "moves_remaining": 21,
+              "reshuffles": 0,
+              "mean_legal_actions": 11.666666666666666,
+              "failure_reason": null,
+              "remaining_objectives": {
+                "blue": 0
+              }
+            }
+          ]
+        },
+        "strategic": {
+          "simulations": 2,
+          "successful_simulations": 2,
+          "win_rate": 1.0,
+          "mean_moves_used": 5.5,
+          "mean_winning_moves_remaining": 18.5,
+          "runs": [
+            {
+              "seed": 100001,
+              "won": true,
+              "moves_used": 8,
+              "moves_remaining": 16,
+              "reshuffles": 0,
+              "mean_legal_actions": 7.25,
+              "failure_reason": null,
+              "remaining_objectives": {
+                "blue": 0
+              }
+            },
+            {
+              "seed": 101010,
+              "won": true,
+              "moves_used": 3,
+              "moves_remaining": 21,
+              "reshuffles": 0,
+              "mean_legal_actions": 10.333333333333334,
+              "failure_reason": null,
+              "remaining_objectives": {
+                "blue": 0
+              }
+            }
+          ]
+        }
+      },
+      "winning_witness": {
+        "seed": 100001,
+        "won": true,
+        "moves_used": 8,
+        "moves_remaining": 16,
+        "reshuffles": 0,
+        "mean_legal_actions": 7.25,
+        "failure_reason": null,
+        "remaining_objectives": {
+          "blue": 0
+        },
+        "winning_move_sequence": [
+          [
+            5,
+            2,
+            5,
+            3
+          ],
+          [
+            2,
+            1,
+            2,
+            2
+          ],
+          [
+            3,
+            2,
+            2,
+            2
+          ],
+          [
+            5,
+            5,
+            5,
+            4
+          ],
+          [
+            4,
+            2,
+            5,
+            2
+          ],
+          [
+            2,
+            2,
+            3,
+            2
+          ],
+          [
+            5,
+            2,
+            4,
+            2
+          ],
+          [
+            5,
+            1,
+            4,
+            1
+          ]
+        ],
+        "agent": "beginner"
+      },
+      "trace_replayed": true,
+      "difficulty_score": 0.0,
+      "status": "sampled_win_verified"
+    },
+    {
+      "level_id": 2,
+      "number_of_simulations": 6,
+      "agents": {
+        "beginner": {
+          "simulations": 2,
+          "successful_simulations": 2,
+          "win_rate": 1.0,
+          "mean_moves_used": 14.0,
+          "mean_winning_moves_remaining": 10.0,
+          "runs": [
+            {
+              "seed": 100002,
+              "won": true,
+              "moves_used": 10,
+              "moves_remaining": 14,
+              "reshuffles": 0,
+              "mean_legal_actions": 10.1,
+              "failure_reason": null,
+              "remaining_objectives": {
+                "blue": 0
+              }
+            },
+            {
+              "seed": 101011,
+              "won": true,
+              "moves_used": 18,
+              "moves_remaining": 6,
+              "reshuffles": 0,
+              "mean_legal_actions": 7.722222222222222,
+              "failure_reason": null,
+              "remaining_objectives": {
+                "blue": 0
+              }
+            }
+          ]
+        },
+        "average": {
+          "simulations": 2,
+          "successful_simulations": 2,
+          "win_rate": 1.0,
+          "mean_moves_used": 10.0,
+          "mean_winning_moves_remaining": 14.0,
+          "runs": [
+            {
+              "seed": 100002,
+              "won": true,
+              "moves_used": 9,
+              "moves_remaining": 15,
+              "reshuffles": 0,
+              "mean_legal_actions": 10.0,
+              "failure_reason": null,
+              "remaining_objectives": {
+                "blue": 0
+              }
+            },
+            {
+              "seed": 101011,
+              "won": true,
+              "moves_used": 11,
+              "moves_remaining": 13,
+              "reshuffles": 0,
+              "mean_legal_actions": 12.545454545454545,
+              "failure_reason": null,
+              "remaining_objectives": {
+                "blue": 0
+              }
+            }
+          ]
+        },
+        "strategic": {
+          "simulations": 2,
+          "successful_simulations": 2,
+          "win_rate": 1.0,
+          "mean_moves_used": 7.5,
+          "mean_winning_moves_remaining": 16.5,
+          "runs": [
+            {
+              "seed": 100002,
+              "won": true,
+              "moves_used": 6,
+              "moves_remaining": 18,
+              "reshuffles": 0,
+              "mean_legal_actions": 6.5,
+              "failure_reason": null,
+              "remaining_objectives": {
+                "blue": 0
+              }
+            },
+            {
+              "seed": 101011,
+              "won": true,
+              "moves_used": 9,
+              "moves_remaining": 15,
+              "reshuffles": 0,
+              "mean_legal_actions": 18.88888888888889,
+              "failure_reason": null,
+              "remaining_objectives": {
+                "blue": 0
+              }
+            }
+          ]
+        }
+      },
+      "winning_witness": {
+        "seed": 100002,
+        "won": true,
+        "moves_used": 10,
+        "moves_remaining": 14,
+        "reshuffles": 0,
+        "mean_legal_actions": 10.1,
+        "failure_reason": null,
+        "remaining_objectives": {
+          "blue": 0
+        },
+        "winning_move_sequence": [
+          [
+            1,
+            3,
+            2,
+            3
+          ],
+          [
+            1,
+            3,
+            2,
+            3
+          ],
+          [
+            1,
+            3,
+            1,
+            2
+          ],
+          [
+            4,
+            4,
+            4,
+            3
+          ],
+          [
+            5,
+            2,
+            5,
+            3
+          ],
+          [
+            3,
+            0,
+            3,
+            1
+          ],
+          [
+            4,
+            1,
+            3,
+            1
+          ],
+          [
+            4,
+            2,
+            4,
+            3
+          ],
+          [
+            2,
+            2,
+            2,
+            1
+          ],
+          [
+            1,
+            1,
+            1,
+            2
+          ]
+        ],
+        "agent": "beginner"
+      },
+      "trace_replayed": true,
+      "difficulty_score": 0.0,
+      "status": "sampled_win_verified"
+    },
+    {
+      "level_id": 3,
+      "number_of_simulations": 6,
+      "agents": {
+        "beginner": {
+          "simulations": 2,
+          "successful_simulations": 2,
+          "win_rate": 1.0,
+          "mean_moves_used": 18.0,
+          "mean_winning_moves_remaining": 6.0,
+          "runs": [
+            {
+              "seed": 100003,
+              "won": true,
+              "moves_used": 24,
+              "moves_remaining": 0,
+              "reshuffles": 0,
+              "mean_legal_actions": 9.458333333333334,
+              "failure_reason": null,
+              "remaining_objectives": {
+                "blue": 0,
+                "red": 0
+              }
+            },
+            {
+              "seed": 101012,
+              "won": true,
+              "moves_used": 12,
+              "moves_remaining": 12,
+              "reshuffles": 0,
+              "mean_legal_actions": 9.5,
+              "failure_reason": null,
+              "remaining_objectives": {
+                "blue": 0,
+                "red": 0
+              }
+            }
+          ]
+        },
+        "average": {
+          "simulations": 2,
+          "successful_simulations": 2,
+          "win_rate": 1.0,
+          "mean_moves_used": 10.5,
+          "mean_winning_moves_remaining": 13.5,
+          "runs": [
+            {
+              "seed": 100003,
+              "won": true,
+              "moves_used": 14,
+              "moves_remaining": 10,
+              "reshuffles": 0,
+              "mean_legal_actions": 13.0,
+              "failure_reason": null,
+              "remaining_objectives": {
+                "blue": 0,
+                "red": 0
+              }
+            },
+            {
+              "seed": 101012,
+              "won": true,
+              "moves_used": 7,
+              "moves_remaining": 17,
+              "reshuffles": 0,
+              "mean_legal_actions": 9.714285714285714,
+              "failure_reason": null,
+              "remaining_objectives": {
+                "blue": 0,
+                "red": 0
+              }
+            }
+          ]
+        },
+        "strategic": {
+          "simulations": 2,
+          "successful_simulations": 2,
+          "win_rate": 1.0,
+          "mean_moves_used": 8.0,
+          "mean_winning_moves_remaining": 16.0,
+          "runs": [
+            {
+              "seed": 100003,
+              "won": true,
+              "moves_used": 9,
+              "moves_remaining": 15,
+              "reshuffles": 0,
+              "mean_legal_actions": 16.22222222222222,
+              "failure_reason": null,
+              "remaining_objectives": {
+                "blue": 0,
+                "red": 0
+              }
+            },
+            {
+              "seed": 101012,
+              "won": true,
+              "moves_used": 7,
+              "moves_remaining": 17,
+              "reshuffles": 0,
+              "mean_legal_actions": 9.714285714285714,
+              "failure_reason": null,
+              "remaining_objectives": {
+                "blue": 0,
+                "red": 0
+              }
+            }
+          ]
+        }
+      },
+      "winning_witness": {
+        "seed": 100003,
+        "won": true,
+        "moves_used": 24,
+        "moves_remaining": 0,
+        "reshuffles": 0,
+        "mean_legal_actions": 9.458333333333334,
+        "failure_reason": null,
+        "remaining_objectives": {
+          "blue": 0,
+          "red": 0
+        },
+        "winning_move_sequence": [
+          [
+            4,
+            3,
+            4,
+            2
+          ],
+          [
+            2,
+            3,
+            2,
+            2
+          ],
+          [
+            4,
+            3,
+            3,
+            3
+          ],
+          [
+            3,
+            3,
+            2,
+            3
+          ],
+          [
+            4,
+            4,
+            4,
+            3
+          ],
+          [
+            3,
+            2,
+            3,
+            1
+          ],
+          [
+            1,
+            2,
+            1,
+            1
+          ],
+          [
+            4,
+            2,
+            4,
+            1
+          ],
+          [
+            2,
+            1,
+            2,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            2,
+            0,
+            2,
+            1
+          ],
+          [
+            4,
+            5,
+            4,
+            4
+          ],
+          [
+            2,
+            2,
+            2,
+            1
+          ],
+          [
+            1,
+            2,
+            2,
+            2
+          ],
+          [
+            4,
+            3,
+            4,
+            2
+          ],
+          [
+            4,
+            4,
+            4,
+            3
+          ],
+          [
+            2,
+            2,
+            1,
+            2
+          ],
+          [
+            4,
+            2,
+            5,
+            2
+          ],
+          [
+            4,
+            2,
+            4,
+            1
+          ],
+          [
+            3,
+            2,
+            2,
+            2
+          ],
+          [
+            1,
+            1,
+            1,
+            2
+          ],
+          [
+            4,
+            1,
+            4,
+            2
+          ],
+          [
+            4,
+            2,
+            3,
+            2
+          ],
+          [
+            4,
+            0,
+            5,
+            0
+          ]
+        ],
+        "agent": "beginner"
+      },
+      "trace_replayed": true,
+      "difficulty_score": 0.0,
+      "status": "sampled_win_verified"
+    },
+    {
+      "level_id": 4,
+      "number_of_simulations": 6,
+      "agents": {
+        "beginner": {
+          "simulations": 2,
+          "successful_simulations": 2,
+          "win_rate": 1.0,
+          "mean_moves_used": 12.5,
+          "mean_winning_moves_remaining": 11.5,
+          "runs": [
+            {
+              "seed": 100004,
+              "won": true,
+              "moves_used": 15,
+              "moves_remaining": 9,
+              "reshuffles": 2,
+              "mean_legal_actions": 10.4,
+              "failure_reason": null,
+              "remaining_objectives": {
+                "red": 0,
+                "purple": 0
+              }
+            },
+            {
+              "seed": 101013,
+              "won": true,
+              "moves_used": 10,
+              "moves_remaining": 14,
+              "reshuffles": 0,
+              "mean_legal_actions": 13.6,
+              "failure_reason": null,
+              "remaining_objectives": {
+                "red": 0,
+                "purple": 0
+              }
+            }
+          ]
+        },
+        "average": {
+          "simulations": 2,
+          "successful_simulations": 2,
+          "win_rate": 1.0,
+          "mean_moves_used": 14.5,
+          "mean_winning_moves_remaining": 9.5,
+          "runs": [
+            {
+              "seed": 100004,
+              "won": true,
+              "moves_used": 13,
+              "moves_remaining": 11,
+              "reshuffles": 1,
+              "mean_legal_actions": 10.076923076923077,
+              "failure_reason": null,
+              "remaining_objectives": {
+                "red": 0,
+                "purple": 0
+              }
+            },
+            {
+              "seed": 101013,
+              "won": true,
+              "moves_used": 16,
+              "moves_remaining": 8,
+              "reshuffles": 1,
+              "mean_legal_actions": 8.5,
+              "failure_reason": null,
+              "remaining_objectives": {
+                "red": 0,
+                "purple": 0
+              }
+            }
+          ]
+        },
+        "strategic": {
+          "simulations": 2,
+          "successful_simulations": 2,
+          "win_rate": 1.0,
+          "mean_moves_used": 12.0,
+          "mean_winning_moves_remaining": 12.0,
+          "runs": [
+            {
+              "seed": 100004,
+              "won": true,
+              "moves_used": 7,
+              "moves_remaining": 17,
+              "reshuffles": 1,
+              "mean_legal_actions": 12.285714285714286,
+              "failure_reason": null,
+              "remaining_objectives": {
+                "red": 0,
+                "purple": 0
+              }
+            },
+            {
+              "seed": 101013,
+              "won": true,
+              "moves_used": 17,
+              "moves_remaining": 7,
+              "reshuffles": 1,
+              "mean_legal_actions": 8.588235294117647,
+              "failure_reason": null,
+              "remaining_objectives": {
+                "red": 0,
+                "purple": 0
+              }
+            }
+          ]
+        }
+      },
+      "winning_witness": {
+        "seed": 100004,
+        "won": true,
+        "moves_used": 15,
+        "moves_remaining": 9,
+        "reshuffles": 2,
+        "mean_legal_actions": 10.4,
+        "failure_reason": null,
+        "remaining_objectives": {
+          "red": 0,
+          "purple": 0
+        },
+        "winning_move_sequence": [
+          [
+            2,
+            2,
+            3,
+            2
+          ],
+          [
+            3,
+            3,
+            3,
+            4
+          ],
+          [
+            4,
+            2,
+            3,
+            2
+          ],
+          [
+            5,
+            0,
+            5,
+            1
+          ],
+          [
+            5,
+            2,
+            5,
+            1
+          ],
+          [
+            3,
+            2,
+            3,
+            3
+          ],
+          [
+            3,
+            5,
+            2,
+            5
+          ],
+          [
+            3,
+            2,
+            4,
+            2
+          ],
+          [
+            3,
+            2,
+            4,
+            2
+          ],
+          [
+            3,
+            4,
+            3,
+            3
+          ],
+          [
+            5,
+            3,
+            5,
+            2
+          ],
+          [
+            4,
+            1,
+            4,
+            0
+          ],
+          [
+            1,
+            2,
+            1,
+            1
+          ],
+          [
+            3,
+            2,
+            4,
+            2
+          ],
+          [
+            4,
+            2,
+            4,
+            1
+          ]
+        ],
+        "agent": "beginner"
+      },
+      "trace_replayed": true,
+      "difficulty_score": 0.0,
+      "status": "sampled_win_verified"
+    },
+    {
+      "level_id": 5,
+      "number_of_simulations": 6,
+      "agents": {
+        "beginner": {
+          "simulations": 2,
+          "successful_simulations": 2,
+          "win_rate": 1.0,
+          "mean_moves_used": 16.0,
+          "mean_winning_moves_remaining": 8.0,
+          "runs": [
+            {
+              "seed": 100005,
+              "won": true,
+              "moves_used": 18,
+              "moves_remaining": 6,
+              "reshuffles": 0,
+              "mean_legal_actions": 11.444444444444445,
+              "failure_reason": null,
+              "remaining_objectives": {
+                "red": 0,
+                "purple": 0
+              }
+            },
+            {
+              "seed": 101014,
+              "won": true,
+              "moves_used": 14,
+              "moves_remaining": 10,
+              "reshuffles": 0,
+              "mean_legal_actions": 9.571428571428571,
+              "failure_reason": null,
+              "remaining_objectives": {
+                "red": 0,
+                "purple": 0
+              }
+            }
+          ]
+        },
+        "average": {
+          "simulations": 2,
+          "successful_simulations": 2,
+          "win_rate": 1.0,
+          "mean_moves_used": 18.0,
+          "mean_winning_moves_remaining": 6.0,
+          "runs": [
+            {
+              "seed": 100005,
+              "won": true,
+              "moves_used": 18,
+              "moves_remaining": 6,
+              "reshuffles": 0,
+              "mean_legal_actions": 8.666666666666666,
+              "failure_reason": null,
+              "remaining_objectives": {
+                "red": 0,
+                "purple": 0
+              }
+            },
+            {
+              "seed": 101014,
+              "won": true,
+              "moves_used": 18,
+              "moves_remaining": 6,
+              "reshuffles": 0,
+              "mean_legal_actions": 10.722222222222221,
+              "failure_reason": null,
+              "remaining_objectives": {
+                "red": 0,
+                "purple": 0
+              }
+            }
+          ]
+        },
+        "strategic": {
+          "simulations": 2,
+          "successful_simulations": 2,
+          "win_rate": 1.0,
+          "mean_moves_used": 15.5,
+          "mean_winning_moves_remaining": 8.5,
+          "runs": [
+            {
+              "seed": 100005,
+              "won": true,
+              "moves_used": 13,
+              "moves_remaining": 11,
+              "reshuffles": 0,
+              "mean_legal_actions": 13.23076923076923,
+              "failure_reason": null,
+              "remaining_objectives": {
+                "red": 0,
+                "purple": 0
+              }
+            },
+            {
+              "seed": 101014,
+              "won": true,
+              "moves_used": 18,
+              "moves_remaining": 6,
+              "reshuffles": 0,
+              "mean_legal_actions": 10.722222222222221,
+              "failure_reason": null,
+              "remaining_objectives": {
+                "red": 0,
+                "purple": 0
+              }
+            }
+          ]
+        }
+      },
+      "winning_witness": {
+        "seed": 100005,
+        "won": true,
+        "moves_used": 18,
+        "moves_remaining": 6,
+        "reshuffles": 0,
+        "mean_legal_actions": 11.444444444444445,
+        "failure_reason": null,
+        "remaining_objectives": {
+          "red": 0,
+          "purple": 0
+        },
+        "winning_move_sequence": [
+          [
+            2,
+            2,
+            2,
+            3
+          ],
+          [
+            4,
+            3,
+            4,
+            2
+          ],
+          [
+            2,
+            3,
+            1,
+            3
+          ],
+          [
+            3,
+            3,
+            2,
+            3
+          ],
+          [
+            4,
+            1,
+            4,
+            2
+          ],
+          [
+            2,
+            1,
+            2,
+            0
+          ],
+          [
+            4,
+            2,
+            4,
+            1
+          ],
+          [
+            2,
+            3,
+            2,
+            2
+          ],
+          [
+            2,
+            3,
+            2,
+            4
+          ],
+          [
+            3,
+            5,
+            3,
+            4
+          ],
+          [
+            2,
+            2,
+            3,
+            2
+          ],
+          [
+            3,
+            3,
+            3,
+            4
+          ],
+          [
+            2,
+            2,
+            2,
+            3
+          ],
+          [
+            1,
+            5,
+            1,
+            4
+          ],
+          [
+            2,
+            2,
+            1,
+            2
+          ],
+          [
+            2,
+            3,
+            2,
+            4
+          ],
+          [
+            3,
+            1,
+            2,
+            1
+          ],
+          [
+            5,
+            1,
+            5,
+            2
+          ]
+        ],
+        "agent": "beginner"
+      },
+      "trace_replayed": true,
+      "difficulty_score": 0.0,
+      "status": "sampled_win_verified"
+    }
+  ]
+}

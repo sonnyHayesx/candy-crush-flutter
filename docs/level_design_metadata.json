@@ -1,0 +1,702 @@
+[
+  {
+    "level": 1,
+    "source": "original campaign design",
+    "family": 0,
+    "recovery": false,
+    "rationale": "Generous color-only onboarding; no frozen cells or walls."
+  },
+  {
+    "level": 2,
+    "source": "original campaign design",
+    "family": 1,
+    "recovery": false,
+    "rationale": "Generous color-only onboarding; no frozen cells or walls."
+  },
+  {
+    "level": 3,
+    "source": "original campaign design",
+    "family": 2,
+    "recovery": false,
+    "rationale": "Generous color-only onboarding; no frozen cells or walls."
+  },
+  {
+    "level": 4,
+    "source": "original campaign design",
+    "family": 3,
+    "recovery": false,
+    "rationale": "Generous color-only onboarding; no frozen cells or walls."
+  },
+  {
+    "level": 5,
+    "source": "original campaign design",
+    "family": 4,
+    "recovery": false,
+    "rationale": "Generous color-only onboarding; no frozen cells or walls."
+  },
+  {
+    "level": 6,
+    "source": "original campaign design",
+    "family": 5,
+    "recovery": false,
+    "rationale": "Practice silhouette 5 with chapter 1 collection pressure and terrain."
+  },
+  {
+    "level": 7,
+    "source": "original campaign design",
+    "family": 6,
+    "recovery": false,
+    "rationale": "Practice silhouette 6 with chapter 1 collection pressure and terrain."
+  },
+  {
+    "level": 8,
+    "source": "adapted legacy 2",
+    "family": 7,
+    "recovery": false,
+    "rationale": "Practice silhouette 7 with chapter 1 collection pressure and terrain."
+  },
+  {
+    "level": 9,
+    "source": "original campaign design",
+    "family": 8,
+    "recovery": false,
+    "rationale": "Practice silhouette 8 with chapter 1 collection pressure and terrain."
+  },
+  {
+    "level": 10,
+    "source": "original campaign design",
+    "family": 9,
+    "recovery": false,
+    "rationale": "Practice silhouette 9 with chapter 1 collection pressure and terrain."
+  },
+  {
+    "level": 11,
+    "source": "original campaign design",
+    "family": 0,
+    "recovery": true,
+    "rationale": "Recovery: reduced quotas, generous moves and uncluttered terrain."
+  },
+  {
+    "level": 12,
+    "source": "original campaign design",
+    "family": 1,
+    "recovery": false,
+    "rationale": "Practice silhouette 1 with chapter 2 collection pressure and terrain."
+  },
+  {
+    "level": 13,
+    "source": "original campaign design",
+    "family": 2,
+    "recovery": false,
+    "rationale": "Practice silhouette 2 with chapter 2 collection pressure and terrain."
+  },
+  {
+    "level": 14,
+    "source": "original campaign design",
+    "family": 3,
+    "recovery": false,
+    "rationale": "Practice silhouette 3 with chapter 2 collection pressure and terrain."
+  },
+  {
+    "level": 15,
+    "source": "original campaign design",
+    "family": 4,
+    "recovery": false,
+    "rationale": "Practice silhouette 4 with chapter 2 collection pressure and terrain."
+  },
+  {
+    "level": 16,
+    "source": "adapted legacy 1",
+    "family": 5,
+    "recovery": true,
+    "rationale": "Recovery: reduced quotas, generous moves and uncluttered terrain."
+  },
+  {
+    "level": 17,
+    "source": "original campaign design",
+    "family": 6,
+    "recovery": false,
+    "rationale": "Practice silhouette 6 with chapter 2 collection pressure and terrain."
+  },
+  {
+    "level": 18,
+    "source": "original campaign design",
+    "family": 7,
+    "recovery": false,
+    "rationale": "Practice silhouette 7 with chapter 2 collection pressure and terrain."
+  },
+  {
+    "level": 19,
+    "source": "original campaign design",
+    "family": 8,
+    "recovery": false,
+    "rationale": "Practice silhouette 8 with chapter 2 collection pressure and terrain."
+  },
+  {
+    "level": 20,
+    "source": "original campaign design",
+    "family": 9,
+    "recovery": false,
+    "rationale": "Practice silhouette 9 with chapter 2 collection pressure and terrain."
+  },
+  {
+    "level": 21,
+    "source": "original campaign design",
+    "family": 0,
+    "recovery": true,
+    "rationale": "Recovery: reduced quotas, generous moves and uncluttered terrain."
+  },
+  {
+    "level": 22,
+    "source": "original campaign design",
+    "family": 1,
+    "recovery": false,
+    "rationale": "Practice silhouette 1 with chapter 3 collection pressure and terrain."
+  },
+  {
+    "level": 23,
+    "source": "original campaign design",
+    "family": 2,
+    "recovery": false,
+    "rationale": "Practice silhouette 2 with chapter 3 collection pressure and terrain."
+  },
+  {
+    "level": 24,
+    "source": "adapted legacy 5",
+    "family": 3,
+    "recovery": false,
+    "rationale": "Practice silhouette 3 with chapter 3 collection pressure and terrain."
+  },
+  {
+    "level": 25,
+    "source": "original campaign design",
+    "family": 4,
+    "recovery": false,
+    "rationale": "Practice silhouette 4 with chapter 3 collection pressure and terrain."
+  },
+  {
+    "level": 26,
+    "source": "original campaign design",
+    "family": 5,
+    "recovery": true,
+    "rationale": "Recovery: reduced quotas, generous moves and uncluttered terrain."
+  },
+  {
+    "level": 27,
+    "source": "original campaign design",
+    "family": 6,
+    "recovery": false,
+    "rationale": "Practice silhouette 6 with chapter 3 collection pressure and terrain."
+  },
+  {
+    "level": 28,
+    "source": "original campaign design",
+    "family": 7,
+    "recovery": false,
+    "rationale": "Practice silhouette 7 with chapter 3 collection pressure and terrain."
+  },
+  {
+    "level": 29,
+    "source": "original campaign design",
+    "family": 8,
+    "recovery": false,
+    "rationale": "Practice silhouette 8 with chapter 3 collection pressure and terrain."
+  },
+  {
+    "level": 30,
+    "source": "original campaign design",
+    "family": 9,
+    "recovery": false,
+    "rationale": "Practice silhouette 9 with chapter 3 collection pressure and terrain."
+  },
+  {
+    "level": 31,
+    "source": "original campaign design",
+    "family": 0,
+    "recovery": true,
+    "rationale": "Recovery: reduced quotas, generous moves and uncluttered terrain."
+  },
+  {
+    "level": 32,
+    "source": "original campaign design",
+    "family": 1,
+    "recovery": false,
+    "rationale": "Practice silhouette 1 with chapter 4 collection pressure and terrain."
+  },
+  {
+    "level": 33,
+    "source": "original campaign design",
+    "family": 2,
+    "recovery": false,
+    "rationale": "Practice silhouette 2 with chapter 4 collection pressure and terrain."
+  },
+  {
+    "level": 34,
+    "source": "original campaign design",
+    "family": 3,
+    "recovery": false,
+    "rationale": "Practice silhouette 3 with chapter 4 collection pressure and terrain."
+  },
+  {
+    "level": 35,
+    "source": "original campaign design",
+    "family": 4,
+    "recovery": false,
+    "rationale": "Practice silhouette 4 with chapter 4 collection pressure and terrain."
+  },
+  {
+    "level": 36,
+    "source": "original campaign design",
+    "family": 5,
+    "recovery": true,
+    "rationale": "Recovery: reduced quotas, generous moves and uncluttered terrain."
+  },
+  {
+    "level": 37,
+    "source": "original campaign design",
+    "family": 6,
+    "recovery": false,
+    "rationale": "Practice silhouette 6 with chapter 4 collection pressure and terrain."
+  },
+  {
+    "level": 38,
+    "source": "original campaign design",
+    "family": 7,
+    "recovery": false,
+    "rationale": "Practice silhouette 7 with chapter 4 collection pressure and terrain."
+  },
+  {
+    "level": 39,
+    "source": "original campaign design",
+    "family": 8,
+    "recovery": false,
+    "rationale": "Practice silhouette 8 with chapter 4 collection pressure and terrain."
+  },
+  {
+    "level": 40,
+    "source": "original campaign design",
+    "family": 9,
+    "recovery": false,
+    "rationale": "Practice silhouette 9 with chapter 4 collection pressure and terrain."
+  },
+  {
+    "level": 41,
+    "source": "original campaign design",
+    "family": 0,
+    "recovery": true,
+    "rationale": "Recovery: reduced quotas, generous moves and uncluttered terrain."
+  },
+  {
+    "level": 42,
+    "source": "original campaign design",
+    "family": 1,
+    "recovery": false,
+    "rationale": "Practice silhouette 1 with chapter 5 collection pressure and terrain."
+  },
+  {
+    "level": 43,
+    "source": "original campaign design",
+    "family": 2,
+    "recovery": false,
+    "rationale": "Practice silhouette 2 with chapter 5 collection pressure and terrain."
+  },
+  {
+    "level": 44,
+    "source": "original campaign design",
+    "family": 3,
+    "recovery": false,
+    "rationale": "Practice silhouette 3 with chapter 5 collection pressure and terrain."
+  },
+  {
+    "level": 45,
+    "source": "original campaign design",
+    "family": 4,
+    "recovery": false,
+    "rationale": "Practice silhouette 4 with chapter 5 collection pressure and terrain."
+  },
+  {
+    "level": 46,
+    "source": "original campaign design",
+    "family": 5,
+    "recovery": true,
+    "rationale": "Recovery: reduced quotas, generous moves and uncluttered terrain."
+  },
+  {
+    "level": 47,
+    "source": "original campaign design",
+    "family": 6,
+    "recovery": false,
+    "rationale": "Practice silhouette 6 with chapter 5 collection pressure and terrain."
+  },
+  {
+    "level": 48,
+    "source": "original campaign design",
+    "family": 7,
+    "recovery": false,
+    "rationale": "Practice silhouette 7 with chapter 5 collection pressure and terrain."
+  },
+  {
+    "level": 49,
+    "source": "original campaign design",
+    "family": 8,
+    "recovery": false,
+    "rationale": "Practice silhouette 8 with chapter 5 collection pressure and terrain."
+  },
+  {
+    "level": 50,
+    "source": "original campaign design",
+    "family": 9,
+    "recovery": false,
+    "rationale": "Practice silhouette 9 with chapter 5 collection pressure and terrain."
+  },
+  {
+    "level": 51,
+    "source": "original campaign design",
+    "family": 0,
+    "recovery": true,
+    "rationale": "Recovery: reduced quotas, generous moves and uncluttered terrain."
+  },
+  {
+    "level": 52,
+    "source": "original campaign design",
+    "family": 1,
+    "recovery": false,
+    "rationale": "Practice silhouette 1 with chapter 6 collection pressure and terrain."
+  },
+  {
+    "level": 53,
+    "source": "original campaign design",
+    "family": 2,
+    "recovery": false,
+    "rationale": "Practice silhouette 2 with chapter 6 collection pressure and terrain."
+  },
+  {
+    "level": 54,
+    "source": "original campaign design",
+    "family": 3,
+    "recovery": false,
+    "rationale": "Practice silhouette 3 with chapter 6 collection pressure and terrain."
+  },
+  {
+    "level": 55,
+    "source": "original campaign design",
+    "family": 4,
+    "recovery": false,
+    "rationale": "Practice silhouette 4 with chapter 6 collection pressure and terrain."
+  },
+  {
+    "level": 56,
+    "source": "adapted legacy 4",
+    "family": 5,
+    "recovery": true,
+    "rationale": "Recovery: reduced quotas, generous moves and uncluttered terrain."
+  },
+  {
+    "level": 57,
+    "source": "original campaign design",
+    "family": 6,
+    "recovery": false,
+    "rationale": "Practice silhouette 6 with chapter 6 collection pressure and terrain."
+  },
+  {
+    "level": 58,
+    "source": "original campaign design",
+    "family": 7,
+    "recovery": false,
+    "rationale": "Practice silhouette 7 with chapter 6 collection pressure and terrain."
+  },
+  {
+    "level": 59,
+    "source": "original campaign design",
+    "family": 8,
+    "recovery": false,
+    "rationale": "Practice silhouette 8 with chapter 6 collection pressure and terrain."
+  },
+  {
+    "level": 60,
+    "source": "original campaign design",
+    "family": 9,
+    "recovery": false,
+    "rationale": "Practice silhouette 9 with chapter 6 collection pressure and terrain."
+  },
+  {
+    "level": 61,
+    "source": "original campaign design",
+    "family": 0,
+    "recovery": true,
+    "rationale": "Recovery: reduced quotas, generous moves and uncluttered terrain."
+  },
+  {
+    "level": 62,
+    "source": "original campaign design",
+    "family": 1,
+    "recovery": false,
+    "rationale": "Practice silhouette 1 with chapter 7 collection pressure and terrain."
+  },
+  {
+    "level": 63,
+    "source": "original campaign design",
+    "family": 2,
+    "recovery": false,
+    "rationale": "Practice silhouette 2 with chapter 7 collection pressure and terrain."
+  },
+  {
+    "level": 64,
+    "source": "original campaign design",
+    "family": 3,
+    "recovery": false,
+    "rationale": "Practice silhouette 3 with chapter 7 collection pressure and terrain."
+  },
+  {
+    "level": 65,
+    "source": "original campaign design",
+    "family": 4,
+    "recovery": false,
+    "rationale": "Practice silhouette 4 with chapter 7 collection pressure and terrain."
+  },
+  {
+    "level": 66,
+    "source": "original campaign design",
+    "family": 5,
+    "recovery": true,
+    "rationale": "Recovery: reduced quotas, generous moves and uncluttered terrain."
+  },
+  {
+    "level": 67,
+    "source": "original campaign design",
+    "family": 6,
+    "recovery": false,
+    "rationale": "Practice silhouette 6 with chapter 7 collection pressure and terrain."
+  },
+  {
+    "level": 68,
+    "source": "original campaign design",
+    "family": 7,
+    "recovery": false,
+    "rationale": "Practice silhouette 7 with chapter 7 collection pressure and terrain."
+  },
+  {
+    "level": 69,
+    "source": "original campaign design",
+    "family": 8,
+    "recovery": false,
+    "rationale": "Practice silhouette 8 with chapter 7 collection pressure and terrain."
+  },
+  {
+    "level": 70,
+    "source": "original campaign design",
+    "family": 9,
+    "recovery": false,
+    "rationale": "Practice silhouette 9 with chapter 7 collection pressure and terrain."
+  },
+  {
+    "level": 71,
+    "source": "original campaign design",
+    "family": 0,
+    "recovery": true,
+    "rationale": "Recovery: reduced quotas, generous moves and uncluttered terrain."
+  },
+  {
+    "level": 72,
+    "source": "original campaign design",
+    "family": 1,
+    "recovery": false,
+    "rationale": "Practice silhouette 1 with chapter 8 collection pressure and terrain."
+  },
+  {
+    "level": 73,
+    "source": "original campaign design",
+    "family": 2,
+    "recovery": false,
+    "rationale": "Practice silhouette 2 with chapter 8 collection pressure and terrain."
+  },
+  {
+    "level": 74,
+    "source": "original campaign design",
+    "family": 3,
+    "recovery": false,
+    "rationale": "Practice silhouette 3 with chapter 8 collection pressure and terrain."
+  },
+  {
+    "level": 75,
+    "source": "original campaign design",
+    "family": 4,
+    "recovery": false,
+    "rationale": "Practice silhouette 4 with chapter 8 collection pressure and terrain."
+  },
+  {
+    "level": 76,
+    "source": "adapted legacy 3",
+    "family": 5,
+    "recovery": true,
+    "rationale": "Recovery: reduced quotas, generous moves and uncluttered terrain."
+  },
+  {
+    "level": 77,
+    "source": "original campaign design",
+    "family": 6,
+    "recovery": false,
+    "rationale": "Practice silhouette 6 with chapter 8 collection pressure and terrain."
+  },
+  {
+    "level": 78,
+    "source": "original campaign design",
+    "family": 7,
+    "recovery": false,
+    "rationale": "Practice silhouette 7 with chapter 8 collection pressure and terrain."
+  },
+  {
+    "level": 79,
+    "source": "original campaign design",
+    "family": 8,
+    "recovery": false,
+    "rationale": "Practice silhouette 8 with chapter 8 collection pressure and terrain."
+  },
+  {
+    "level": 80,
+    "source": "original campaign design",
+    "family": 9,
+    "recovery": false,
+    "rationale": "Practice silhouette 9 with chapter 8 collection pressure and terrain."
+  },
+  {
+    "level": 81,
+    "source": "original campaign design",
+    "family": 0,
+    "recovery": true,
+    "rationale": "Recovery: reduced quotas, generous moves and uncluttered terrain."
+  },
+  {
+    "level": 82,
+    "source": "original campaign design",
+    "family": 1,
+    "recovery": false,
+    "rationale": "Practice silhouette 1 with chapter 9 collection pressure and terrain."
+  },
+  {
+    "level": 83,
+    "source": "original campaign design",
+    "family": 2,
+    "recovery": false,
+    "rationale": "Practice silhouette 2 with chapter 9 collection pressure and terrain."
+  },
+  {
+    "level": 84,
+    "source": "original campaign design",
+    "family": 3,
+    "recovery": false,
+    "rationale": "Practice silhouette 3 with chapter 9 collection pressure and terrain."
+  },
+  {
+    "level": 85,
+    "source": "original campaign design",
+    "family": 4,
+    "recovery": false,
+    "rationale": "Practice silhouette 4 with chapter 9 collection pressure and terrain."
+  },
+  {
+    "level": 86,
+    "source": "original campaign design",
+    "family": 5,
+    "recovery": true,
+    "rationale": "Recovery: reduced quotas, generous moves and uncluttered terrain."
+  },
+  {
+    "level": 87,
+    "source": "original campaign design",
+    "family": 6,
+    "recovery": false,
+    "rationale": "Practice silhouette 6 with chapter 9 collection pressure and terrain."
+  },
+  {
+    "level": 88,
+    "source": "original campaign design",
+    "family": 7,
+    "recovery": false,
+    "rationale": "Practice silhouette 7 with chapter 9 collection pressure and terrain."
+  },
+  {
+    "level": 89,
+    "source": "original campaign design",
+    "family": 8,
+    "recovery": false,
+    "rationale": "Practice silhouette 8 with chapter 9 collection pressure and terrain."
+  },
+  {
+    "level": 90,
+    "source": "original campaign design",
+    "family": 9,
+    "recovery": false,
+    "rationale": "Practice silhouette 9 with chapter 9 collection pressure and terrain."
+  },
+  {
+    "level": 91,
+    "source": "original campaign design",
+    "family": 0,
+    "recovery": true,
+    "rationale": "Recovery: reduced quotas, generous moves and uncluttered terrain."
+  },
+  {
+    "level": 92,
+    "source": "original campaign design",
+    "family": 1,
+    "recovery": false,
+    "rationale": "Practice silhouette 1 with chapter 10 collection pressure and terrain."
+  },
+  {
+    "level": 93,
+    "source": "original campaign design",
+    "family": 2,
+    "recovery": false,
+    "rationale": "Practice silhouette 2 with chapter 10 collection pressure and terrain."
+  },
+  {
+    "level": 94,
+    "source": "original campaign design",
+    "family": 3,
+    "recovery": false,
+    "rationale": "Practice silhouette 3 with chapter 10 collection pressure and terrain."
+  },
+  {
+    "level": 95,
+    "source": "original campaign design",
+    "family": 4,
+    "recovery": false,
+    "rationale": "Practice silhouette 4 with chapter 10 collection pressure and terrain."
+  },
+  {
+    "level": 96,
+    "source": "original campaign design",
+    "family": 5,
+    "recovery": true,
+    "rationale": "Recovery: reduced quotas, generous moves and uncluttered terrain."
+  },
+  {
+    "level": 97,
+    "source": "original campaign design",
+    "family": 6,
+    "recovery": false,
+    "rationale": "Practice silhouette 6 with chapter 10 collection pressure and terrain."
+  },
+  {
+    "level": 98,
+    "source": "original campaign design",
+    "family": 7,
+    "recovery": false,
+    "rationale": "Practice silhouette 7 with chapter 10 collection pressure and terrain."
+  },
+  {
+    "level": 99,
+    "source": "original campaign design",
+    "family": 8,
+    "recovery": false,
+    "rationale": "Practice silhouette 8 with chapter 10 collection pressure and terrain."
+  },
+  {
+    "level": 100,
+    "source": "original campaign design",
+    "family": 9,
+    "recovery": false,
+    "rationale": "Practice silhouette 9 with chapter 10 collection pressure and terrain."
+  }
+]

@@ -6,6 +6,7 @@ import '../bloc/bloc_provider.dart';
 import '../bloc/game_bloc.dart';
 import '../brand/brand_theme.dart';
 import '../brand/progress.dart';
+import '../brand/campaign.dart';
 import '../model/level.dart';
 import 'game_page.dart';
 import 'progress_page.dart';
@@ -95,90 +96,107 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 }
                 return AnimatedBuilder(
                   animation: GameProgress.instance,
-                  builder: (context, _) => ListView(
-                    padding: const EdgeInsets.fromLTRB(22, 22, 22, 32),
-                    children: [
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: IconButton.filledTonal(
-                          tooltip: 'Settings',
-                          onPressed: () => showModalBottomSheet<void>(
-                            context: context,
-                            builder: (_) => const SettingsSheet(),
-                          ),
-                          icon: const Icon(Icons.settings_rounded),
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      Center(
-                        child: Image.asset(
-                          'assets/brand/vale_icon.png',
-                          width: 112,
-                          height: 112,
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                      Text(
-                        Brand.name,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headlineLarge,
-                      ),
-                      const SizedBox(height: 7),
-                      const Text(
-                        'A little light in every match',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Brand.mint, fontSize: 16),
-                      ),
-                      const SizedBox(height: 28),
-                      FilledButton.icon(
-                        onPressed: _loadingLevel
-                            ? null
-                            : () => _openLevel(
-                                GameProgress.instance.unlockedLevel.clamp(
-                                  1,
-                                  _gameBloc.numberOfLevels,
+                  builder: (context, _) => CustomScrollView(
+                    slivers: [
+                      SliverPadding(
+                        padding: const EdgeInsets.fromLTRB(22, 22, 22, 12),
+                        sliver: SliverList.list(
+                          children: [
+                            Align(
+                              alignment: Alignment.topRight,
+                              child: IconButton.filledTonal(
+                                tooltip: 'Settings',
+                                onPressed: () => showModalBottomSheet<void>(
+                                  context: context,
+                                  builder: (_) => const SettingsSheet(),
+                                ),
+                                icon: const Icon(Icons.settings_rounded),
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            Center(
+                              child: Image.asset(
+                                'assets/brand/vale_icon.png',
+                                width: 112,
+                                height: 112,
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            Text(
+                              Brand.name,
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context).textTheme.headlineLarge,
+                            ),
+                            const SizedBox(height: 7),
+                            const Text(
+                              'A little light in every match',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: Brand.mint, fontSize: 16),
+                            ),
+                            const SizedBox(height: 28),
+                            FilledButton.icon(
+                              onPressed: _loadingLevel
+                                  ? null
+                                  : () => _openLevel(
+                                      GameProgress.instance.unlockedLevel.clamp(
+                                        1,
+                                        _gameBloc.numberOfLevels,
+                                      ),
+                                    ),
+                              icon: const Icon(Icons.play_arrow_rounded),
+                              label: Text(
+                                _loadingLevel ? 'Opening…' : 'Continue journey',
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            OutlinedButton.icon(
+                              onPressed: () => Navigator.of(context).push(
+                                MaterialPageRoute<void>(
+                                  builder: (_) => const ProgressPage(),
                                 ),
                               ),
-                        icon: const Icon(Icons.play_arrow_rounded),
-                        label: Text(
-                          _loadingLevel ? 'Opening…' : 'Continue journey',
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      OutlinedButton.icon(
-                        onPressed: () => Navigator.of(context).push(
-                          MaterialPageRoute<void>(
-                            builder: (_) => const ProgressPage(),
-                          ),
-                        ),
-                        icon: const Icon(Icons.auto_graph_rounded),
-                        label: const Text('Progress & daily light'),
-                      ),
-                      const SizedBox(height: 28),
-                      ValeCard(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                              icon: const Icon(Icons.auto_graph_rounded),
+                              label: const Text('Progress & daily light'),
+                            ),
+                            const SizedBox(height: 28),
                             Text(
                               'The valley trail',
                               style: Theme.of(context).textTheme.titleLarge,
                             ),
                             const SizedBox(height: 4),
-                            const Text(
-                              'Clear each glade to light the next.',
-                              style: TextStyle(color: Brand.mint),
+                            Text(
+                              '${_gameBloc.numberOfLevels} glades. Clear each glade to light the next.',
+                              style: const TextStyle(color: Brand.mint),
                             ),
-                            const SizedBox(height: 18),
-                            for (
-                              var i = 1;
-                              i <= _gameBloc.numberOfLevels;
-                              i++
-                            ) ...[
-                              _levelRow(i),
-                              if (i < _gameBloc.numberOfLevels)
-                                const SizedBox(height: 10),
-                            ],
                           ],
+                        ),
+                      ),
+                      SliverPadding(
+                        padding: const EdgeInsets.fromLTRB(22, 0, 22, 32),
+                        sliver: SliverList.builder(
+                          itemCount: _gameBloc.numberOfLevels,
+                          itemBuilder: (context, index) {
+                            final number = index + 1;
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                if (index % Campaign.levelsPerChapter == 0)
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 16,
+                                    ),
+                                    child: Text(
+                                      Campaign.chapterLabel(number),
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.titleMedium,
+                                    ),
+                                  ),
+                                _levelRow(number),
+                                const SizedBox(height: 10),
+                              ],
+                            );
+                          },
                         ),
                       ),
                     ],
@@ -193,18 +211,11 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   );
 
   Widget _levelRow(int number) {
-    const titles = [
-      'First light',
-      'Fern crossing',
-      'Moonlit bend',
-      'Crystal canopy',
-      'Heart of the vale',
-    ];
     final unlocked = number <= GameProgress.instance.unlockedLevel;
     final completed = number <= GameProgress.instance.highestCompletedLevel;
     return Semantics(
       label:
-          'Level $number, ${titles[number - 1]}, ${completed
+          'Level $number, ${Campaign.levelName(number)}, ${completed
               ? 'completed'
               : unlocked
               ? 'unlocked'
@@ -227,7 +238,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 const SizedBox(width: 14),
                 Expanded(
                   child: Text(
-                    titles[number - 1],
+                    Campaign.levelName(number),
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w700,

@@ -1,5 +1,12 @@
 # Signed release candidate — October 24, 2026
 
+> Historical five-level artifacts: the 100-level campaign work began after these
+> binaries were built. They do not contain the expanded campaign. The rebuilt APK
+> installed and its process remained alive without the earlier Room startup crash,
+> but the emulator showed splash/black output; home, gameplay and browser-link
+> acceptance were not verified. Updated campaign build results must be recorded
+> separately before treating new source as a tested release.
+
 **Rebuilt candidate:** The first signed build crashed in AndroidX Startup because R8 removed WorkDatabase_Impl's reflected no-argument constructor. Added android/app/proguard-rules.pro with a targeted constructor keep rule, wired it into release Gradle, and rebuilt both artifacts using the same upload key. R8 seeds now retain the constructor. The table below describes only the rebuilt artifacts. See [R8 full-mode behavior](https://developer.android.com/topic/performance/app-optimization/full-mode). Installed-release acceptance is pending the retry.
 
 Prismleaf Vale — `com.sunnyHayesx.candyCrush` — version **1.0.0 (1)**.

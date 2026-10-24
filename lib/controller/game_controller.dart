@@ -16,6 +16,7 @@ class GameController {
   late Array2d<Tile> _grid;
   Array2d<Tile> get grid => _grid;
   late math.Random _rnd;
+  math.Random get random => _rnd;
 
   //
   // List of all possible Swaps
@@ -139,7 +140,7 @@ class GameController {
   //
   // Initialization
   //
-  GameController({required this.level}) {
+  GameController({required this.level, math.Random? random}) {
     // Initialize the grid to the dimensions of the Level and fill it with "empty" tiles
     _grid = Array2d<Tile>(
       level.numberOfRows,
@@ -148,7 +149,7 @@ class GameController {
     );
 
     // Initialize the Random generator
-    _rnd = math.Random();
+    _rnd = random ?? math.Random();
 
     // Initialize the swaps Set
     _swaps = HashSet<Swap>();
@@ -492,7 +493,11 @@ class GameController {
     TileType? expositionType = Tile.normalizeBombType(tileExplosion.type!);
 
     // Retrieve the list of row/col variations
-    List<SwapMove>? swaps = _explosions[expositionType];
+    // The largest combination uses the existing wide-area explosion.
+    List<SwapMove>? swaps =
+        _explosions[expositionType == TileType.fireball
+            ? TileType.wrapped
+            : expositionType];
 
     // We will record any explosions that could happen should
     // a bomb make another bomb explode

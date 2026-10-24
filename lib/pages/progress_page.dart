@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../brand/brand_theme.dart';
 import '../brand/progress.dart';
+import '../brand/campaign.dart';
 
 class ProgressPage extends StatelessWidget {
   const ProgressPage({super.key});
@@ -28,7 +29,7 @@ class ProgressPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 14),
                       Text(
-                        'Glades restored: ${progress.highestCompletedLevel} / 5',
+                        'Glades restored: ${progress.highestCompletedLevel} / ${Campaign.totalLevels}',
                       ),
                       Text('Total wins: ${progress.totalWins}'),
                       Text('Best scores combined: ${progress.bestTotalScore}'),
@@ -119,10 +120,29 @@ class ProgressPage extends StatelessWidget {
                         'Best by glade',
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
-                      for (var level = 1; level <= 5; level++)
+                      if (progress.bestScores.isEmpty)
+                        const Text('Play a glade to set a new best.'),
+                      for (final level
+                          in (progress.bestScores.keys.toList()..sort()))
                         Text(
                           'Glade $level: ${progress.bestScores[level] ?? 0}',
                         ),
+                      if (progress.legacyCompletedLevel > 0 ||
+                          progress.legacyBestScores.isNotEmpty) ...[
+                        const SizedBox(height: 12),
+                        Text(
+                          'Original trail keepsakes',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        Text(
+                          '${progress.legacyCompletedLevel} original glades restored. Your earned trail access and glow are preserved.',
+                        ),
+                        const Text(
+                          'These bests belong to the original five layouts.',
+                        ),
+                        for (final entry in progress.legacyBestScores.entries)
+                          Text('Original glade ${entry.key}: ${entry.value}'),
+                      ],
                     ],
                   ),
                 ),
@@ -142,7 +162,7 @@ class ProgressPage extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 4),
                           child: Text(
-                            '${record.day}  •  ${record.kind == 'daily' ? 'Daily light (day ${record.detail})' : 'Glade ${record.detail} clear'}  •  +${record.glow} glow',
+                            '${record.day}  •  ${record.kind == 'daily' ? 'Daily light (day ${record.detail})' : '${record.campaignVersion == 1 ? 'Original glade' : 'Glade'} ${record.detail} clear'}  •  +${record.glow} glow',
                           ),
                         ),
                     ],

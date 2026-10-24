@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../ads/ads_service.dart';
 import '../brand/brand_theme.dart';
+import '../brand/campaign.dart';
 import '../model/level.dart';
 
 class GameOverSplash extends StatelessWidget {
@@ -46,14 +47,20 @@ class GameOverSplash extends StatelessWidget {
                     ),
                     const SizedBox(height: 14),
                     Text(
-                      success ? 'Glade restored!' : 'Almost there',
+                      success
+                          ? (level.index == Campaign.totalLevels
+                                ? 'Valley restored!'
+                                : 'Glade restored!')
+                          : 'Almost there',
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
                     const SizedBox(height: 8),
                     Text(
                       success
-                          ? 'Your matches lit Glade ${level.index}.'
+                          ? (level.index == Campaign.totalLevels
+                                ? 'All 100 glades are alight. Revisit any glade on the trail map.'
+                                : 'Your matches lit Glade ${level.index}.')
                           : 'Try another route through Glade ${level.index}.',
                       textAlign: TextAlign.center,
                     ),

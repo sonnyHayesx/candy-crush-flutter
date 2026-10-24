@@ -17,7 +17,7 @@ import '../../model/level.dart';
 class AnimationsResolver {
   final GameBloc gameBloc;
   final Level level;
-  final math.Random _random = math.Random();
+  math.Random get _random => gameController.random;
   late GameController gameController;
 
   AnimationsResolver({required this.gameBloc, required this.level}) {
@@ -220,6 +220,7 @@ class AnimationsResolver {
 
             // Register the last move
             _lastMoves.add(to);
+            _involvedCells.addAll([from, to]);
 
             // We now need to re-align the post-avalanche status
             newTile.row = row;
@@ -342,6 +343,7 @@ class AnimationsResolver {
             _types[tile.row][tile.col] = combo.resultingTileType;
             _tiles[tile.row][tile.col].type = combo.resultingTileType!;
             _tiles[tile.row][tile.col].build();
+            gameBloc.pushTileEvent(combo.resultingTileType!, 1);
           }
         }
       }
@@ -433,6 +435,7 @@ class AnimationsResolver {
         _types[row - 1][col + colOffset] = _types[row][col];
         _tiles[row - 1][col + colOffset] = _tiles[row][col];
         _tiles[row - 1][col + colOffset]?.row = row - 1;
+        _tiles[row - 1][col + colOffset]?.col = col + colOffset;
 
         _identities[row - 1][col + colOffset] = _identities[row][col];
 
@@ -686,7 +689,7 @@ class AnimationsResolver {
     //
     // First, skip the not existing cells
     //
-    while (_types[row][col] == TileType.forbidden) {
+    while (row >= 0 && _types[row][col] == TileType.forbidden) {
       row--;
     }
 
@@ -694,7 +697,7 @@ class AnimationsResolver {
     // Check if the top row allows new tiles injection
     // Warning, new tiles could also cause avalanches...
     //
-    return (_types[row][col] == TileType.wall) ? -1 : row;
+    return row < 0 || _types[row][col] == TileType.wall ? -1 : row;
   }
 
   //

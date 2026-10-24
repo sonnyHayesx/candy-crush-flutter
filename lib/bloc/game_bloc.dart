@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math' as math;
 
 import 'package:flutter/services.dart';
 import 'package:quiver/iterables.dart';
@@ -80,6 +81,16 @@ class GameBloc implements BlocBase {
     _levelsLoaded = _loadLevels();
   }
 
+  /// Deterministic entry point using the production gameplay and objectives.
+  GameBloc.simulation(Map<String, dynamic> definition, int seed) {
+    final level = Level.fromJson(definition);
+    _levels.add(level);
+    _maxLevel = 1;
+    _levelsLoaded = Future<void>.value();
+    _gameController = GameController(level: level, random: math.Random(seed));
+    _gameController.shuffle();
+  }
+
   //
   // The user wants to select a level.
   // We validate the level number and emit the requested Level
@@ -126,6 +137,11 @@ class GameBloc implements BlocBase {
   // knowing it so that actions can be taken
   //
   void pushTileEvent(TileType tileType, int counter) {
+    // Legacy objectives call the four-match line-special family "flare".
+    final normalized = Tile.normalizeBombType(tileType);
+    if (normalized == TileType.bomb_h || normalized == TileType.bomb_v) {
+      tileType = TileType.flare;
+    }
     score += counter * 10;
     _scoreController.add(score);
     // We first need to decrement the objective by the counter

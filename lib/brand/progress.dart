@@ -3,24 +3,29 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'campaign.dart';
+
 class RewardRecord {
   const RewardRecord({
     required this.day,
     required this.kind,
     required this.glow,
     this.detail = 0,
+    this.campaignVersion = 2,
   });
 
   final String day;
   final String kind;
   final int glow;
   final int detail;
+  final int campaignVersion;
 
   Map<String, Object> toJson() => {
     'day': day,
     'kind': kind,
     'glow': glow,
     'detail': detail,
+    'campaignVersion': campaignVersion,
   };
 
   static RewardRecord? fromJson(Object? value) {
@@ -41,6 +46,9 @@ class RewardRecord {
       kind: value['kind'] as String,
       glow: value['glow'] as int,
       detail: value['detail'] as int,
+      campaignVersion: value['campaignVersion'] is int
+          ? value['campaignVersion'] as int
+          : 1,
     );
   }
 }
@@ -70,6 +78,9 @@ class GameProgress extends ChangeNotifier {
   static const _glowKey = 'prismleaf_glow';
   static const _winsKey = 'prismleaf_total_wins';
   static const _bestKey = 'prismleaf_best_scores';
+  static const _campaignKey = 'prismleaf_campaign_version';
+  static const _legacyBestKey = 'prismleaf_original_best_scores';
+  static const _legacyCompletedKey = 'prismleaf_original_completed_level';
   static const _twilightKey = 'prismleaf_twilight_unlocked';
   static const _themeKey = 'prismleaf_selected_theme';
 
@@ -87,6 +98,8 @@ class GameProgress extends ChangeNotifier {
   String selectedTheme = 'forest';
   String? _lastClaimDay;
   final Map<int, int> bestScores = {};
+  final Map<int, int> legacyBestScores = {};
+  int legacyCompletedLevel = 0;
   final List<RewardRecord> _rewardHistory = [];
   List<RewardRecord> get rewardHistory => List.unmodifiable(_rewardHistory);
 
@@ -136,9 +149,32 @@ class GameProgress extends ChangeNotifier {
 
   Future<void> load() async {
     _preferences = await SharedPreferences.getInstance();
-    unlockedLevel = (_read<int>(_unlockedKey) ?? 1).clamp(1, 999);
+    await _migrateCampaign();
+    unlockedLevel = (_read<int>(_unlockedKey) ?? 1).clamp(
+      1,
+      Campaign.totalLevels,
+    );
     highestCompletedLevel = (_read<int>(_completedKey) ?? unlockedLevel - 1)
-        .clamp(0, 999);
+        .clamp(0, Campaign.totalLevels);
+    legacyCompletedLevel = (_read<int>(_legacyCompletedKey) ?? 0).clamp(0, 5);
+    legacyBestScores.clear();
+    try {
+      final saved =
+          jsonDecode(_read<String>(_legacyBestKey) ?? '{}')
+              as Map<String, dynamic>;
+      for (final entry in saved.entries) {
+        final level = int.tryParse(entry.key);
+        if (level != null &&
+            level >= 1 &&
+            level <= 5 &&
+            entry.value is int &&
+            entry.value >= 0) {
+          legacyBestScores[level] = entry.value as int;
+        }
+      }
+    } catch (_) {
+      // Preserve the archived raw value even if optional scores are malformed.
+    }
     soundEnabled = _read<bool>(_soundKey) ?? true;
     hapticsEnabled = _read<bool>(_hapticsKey) ?? true;
     glow = (_read<int>(_glowKey) ?? 0).clamp(0, 1000000000);
@@ -179,6 +215,37 @@ class GameProgress extends ChangeNotifier {
       // Old saves did not have a history; corrupt optional history is ignored.
     }
     notifyListeners();
+  }
+
+  /// Keep earned trail access and rewards, but don't compare old-layout scores
+  /// with revised puzzles. Archives are written before replacing active scores,
+  /// and are never overwritten if a prior migration was interrupted.
+  Future<void> _migrateCampaign() async {
+    if ((_read<int>(_campaignKey) ?? 1) >= 2) return;
+    final preferences = _preferences!;
+    final completed =
+        (_read<int>(_completedKey) ?? ((_read<int>(_unlockedKey) ?? 1) - 1))
+            .clamp(0, 5);
+    if (!preferences.containsKey(_legacyBestKey)) {
+      await preferences.setString(
+        _legacyBestKey,
+        _read<String>(_bestKey) ?? '{}',
+      );
+    }
+    if (!preferences.containsKey(_legacyCompletedKey)) {
+      await preferences.setInt(_legacyCompletedKey, completed);
+    }
+    await preferences.setString(_bestKey, '{}');
+    final unlocked = (_read<int>(_unlockedKey) ?? 1).clamp(
+      1,
+      Campaign.totalLevels,
+    );
+    await preferences.setInt(
+      _unlockedKey,
+      unlocked > completed ? unlocked : completed + 1,
+    );
+    await preferences.setInt(_completedKey, completed);
+    await preferences.setInt(_campaignKey, 2);
   }
 
   Future<int> claimDaily() async {
