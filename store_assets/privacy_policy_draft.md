@@ -1,5 +1,7 @@
 # Prismleaf Vale privacy policy draft
 
+Historical draft only. The supplied policy URL is https://sonnyhayesx.github.io/app-privacy-policy/ . Confirm its publisher authorization and applicability before release; do not publish this draft as a second policy.
+
 **Publication status:** Draft. Add the publisher name, contact address, effective date, and a stable public URL before submission. Review the final app and Google SDK configuration before publishing this text.
 
 Prismleaf Vale is an Android match-three game. It does not require an account or a game server. The app stores unlocked levels, scores, daily reward dates, current and longest streaks, recent reward history, glow balance, and sound and color preferences in local app storage. This progress is removed when app storage is cleared or the app is uninstalled, unless the device platform restores app data from a backup.

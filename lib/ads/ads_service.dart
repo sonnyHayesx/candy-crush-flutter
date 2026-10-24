@@ -31,6 +31,8 @@ class AdsService extends ChangeNotifier {
     _started = true;
     try {
       final params = ConsentRequestParameters(
+        // All ages, without an age gate: protect every user as under age.
+        tagForUnderAgeOfConsent: true,
         consentDebugSettings:
             !kReleaseMode && AdConfig.umpTestDeviceId.isNotEmpty
             ? ConsentDebugSettings(
@@ -83,11 +85,15 @@ class AdsService extends ChangeNotifier {
         return;
       }
       if (!_sdkInitialized) {
-        if (!kReleaseMode && AdConfig.testDeviceId.isNotEmpty) {
-          await MobileAds.instance.updateRequestConfiguration(
-            RequestConfiguration(testDeviceIds: [AdConfig.testDeviceId]),
-          );
-        }
+        await MobileAds.instance.updateRequestConfiguration(
+          RequestConfiguration(
+            ageRestrictedTreatment: AgeRestrictedTreatment.child,
+            maxAdContentRating: MaxAdContentRating.g,
+            testDeviceIds: !kReleaseMode && AdConfig.testDeviceId.isNotEmpty
+                ? [AdConfig.testDeviceId]
+                : null,
+          ),
+        );
         await MobileAds.instance.initialize();
         _sdkInitialized = true;
       }

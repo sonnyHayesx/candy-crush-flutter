@@ -35,6 +35,6 @@ Explore five glades with different board shapes and goals. Completed glades unlo
 - Configure private release signing; build and install a release variant on Android.
 - Test gameplay, pause, sound setting, progress persistence, and lifecycle on physical devices.
 - Complete Play Console data safety, content rating, privacy and target-audience declarations as applicable.
-- Publish a reviewed privacy policy at a public URL and add it to Play Console. Start from `privacy_policy_draft.md` and fill the publisher details.
+- Use https://sonnyhayesx.github.io/app-privacy-policy/ in Play Console and in the app. HTTPS accessibility was verified October 22, 2026; confirm publisher authorization, target audience, and actual data practices before submission. `privacy_policy_draft.md` is historical drafting material, not the published policy.
 - Configure UMP privacy messages in AdMob, verify ad units, register test devices, and validate consent behavior in relevant regions.
 - If children are in the target audience, review Families requirements and adapt ads and age handling before enabling production ads.

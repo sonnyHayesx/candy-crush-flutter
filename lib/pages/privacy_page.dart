@@ -1,9 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../brand/brand_theme.dart';
 
 class PrivacyPage extends StatelessWidget {
   const PrivacyPage({super.key});
+
+  static const policyUrl = 'https://sonnyhayesx.github.io/app-privacy-policy/';
+  static const _channel = MethodChannel('prismleafvale/privacy');
+
+  Future<void> _openPolicy(BuildContext context) async {
+    try {
+      await _channel.invokeMethod<void>('openPrivacyPolicy');
+    } on PlatformException {
+      if (context.mounted) _showBrowserError(context);
+    } on MissingPluginException {
+      if (context.mounted) _showBrowserError(context);
+    }
+  }
+
+  void _showBrowserError(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          'Could not open a browser. Copy the policy address below.',
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -13,6 +37,23 @@ class PrivacyPage extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.all(20),
           children: [
+            ValeCard(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  FilledButton.icon(
+                    onPressed: () => _openPolicy(context),
+                    icon: const Icon(Icons.open_in_new),
+                    label: const Text('Privacy Policy'),
+                  ),
+                  const SizedBox(height: 8),
+                  const Text('Opens in your browser.'),
+                  const SizedBox(height: 8),
+                  const SelectableText(policyUrl),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
             ValeCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,6 +91,12 @@ class PrivacyPage extends StatelessWidget {
                     'interactions, diagnostics, and device identifiers for ad '
                     'delivery, measurement, and fraud prevention. Available '
                     'privacy choices appear in Settings where required.',
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'This all-ages game requests child-directed advertising '
+                    'with a maximum G content rating for everyone. It does '
+                    'not ask for your age.',
                   ),
                 ],
               ),

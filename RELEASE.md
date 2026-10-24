@@ -1,5 +1,28 @@
 # Release verification
 
+Latest signed candidate: [RELEASE_RESULT.md](RELEASE_RESULT.md), October 24, 2026. Both APK and AAB are generated with the new authorized upload key; see that report for checksums, signature checks and remaining acceptance gates.
+
+## Current candidate — October 22, 2026
+
+See [RELEASE_AUDIT.md](RELEASE_AUDIT.md) for current evidence and unresolved release gates. Older results below do not validate this candidate.
+
+Privacy policy: https://sonnyhayesx.github.io/app-privacy-policy/
+
+The link is available under Settings > Privacy & data > Privacy Policy. HTTPS returned HTTP 200; publisher authorization and audience-specific disclosures still need confirmation. The externally hosted policy was not edited. No Android manifest field in this project explicitly supports a privacy policy URL; enter the URL in Play Console.
+
+After ownership, audience, SDK licenses and authorized signing are resolved, build both artifacts from the same configuration:
+
+```sh
+flutter clean
+flutter pub get --enforce-lockfile
+flutter analyze
+flutter test
+flutter build apk --release
+flutter build appbundle --release
+```
+
+These commands leave production ad requests disabled. Enable live ads in **both** build commands only after the AdMob and audience gates are cleared. Validate APK signatures with `apksigner verify --verbose --print-certs`, AAB signatures with `jarsigner -verify -verbose -certs`, and the bundle with `bundletool validate`. Inspect both manifests and record SHA-256, sizes, timestamps and certificates before distribution. Upload-key and Play-distributed app-signing certificates can differ under Play App Signing.
+
 Use Flutter **3.47.7** (Dart **3.13.5**) and JDK 21. Android built-in Kotlin requires Flutter **3.47.0** or newer. CI pins this Flutter version and checks formatting, analysis, tests, and an Android debug build. Newer SDKs satisfy the package constraints, but may change SDK-pinned dependencies. CI artifacts are for testing only.
 
 ## Compatibility validation 2026-10-14
@@ -39,7 +62,7 @@ flutter build apk --debug
 
 - Configure `android/key.properties` from the example, using a private upload keystore. Keep the keystore and passwords outside version control and back up the keystore securely. Release packaging rejects missing signing configuration.
 - Confirm ownership of the application ID and configured AdMob IDs.
-- Fill in publisher name, support contact, and effective date in `store_assets/privacy_policy_draft.md`; publish the reviewed policy at a public URL.
+- Confirm authorization and applicability of https://sonnyhayesx.github.io/app-privacy-policy/ and use this exact URL in Play Console. The local draft is historical only.
 - Decide the target audience and complete the Play Console declarations. Production ads remain disabled by default. If the audience includes children, adapt and validate the ads configuration before enabling ads.
 - Review upstream code licensing and artwork rights. Capture actual device screenshots for the store listing.
 
