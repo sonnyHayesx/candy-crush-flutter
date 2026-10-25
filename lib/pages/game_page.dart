@@ -208,45 +208,55 @@ class _GamePageState extends State<GamePage>
               child: Stack(children: [_buildBoard(), _buildTiles()]),
             ),
             SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(14, 8, 14, 0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Row(
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: SizedBox(
+                  width:
+                      MediaQuery.of(context).orientation ==
+                          Orientation.landscape
+                      ? 280
+                      : double.infinity,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(14, 8, 14, 0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        IconButton.filledTonal(
-                          tooltip: 'Pause game',
-                          onPressed: _showPause,
-                          icon: const Icon(Icons.pause_rounded),
+                        Row(
+                          children: [
+                            IconButton.filledTonal(
+                              tooltip: 'Pause game',
+                              onPressed: _showPause,
+                              icon: const Icon(Icons.pause_rounded),
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Text(
+                                'Glade ${widget.level.index}',
+                                style: Theme.of(context).textTheme.titleLarge,
+                              ),
+                            ),
+                            StreamBuilder<int>(
+                              stream: _gameBloc.scoreChanges,
+                              initialData: _gameBloc.score,
+                              builder: (context, snapshot) => Text(
+                                '${snapshot.data ?? 0} pts',
+                                style: const TextStyle(color: Brand.gold),
+                              ),
+                            ),
+                          ],
                         ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Text(
-                            'Glade ${widget.level.index}',
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
-                        ),
-                        StreamBuilder<int>(
-                          stream: _gameBloc.scoreChanges,
-                          initialData: _gameBloc.score,
-                          builder: (context, snapshot) => Text(
-                            '${snapshot.data ?? 0} pts',
-                            style: const TextStyle(color: Brand.gold),
-                          ),
+                        const SizedBox(height: 10),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _buildMovesLeftPanel(),
+                            const SizedBox(width: 8),
+                            Expanded(child: _buildObjectivePanel()),
+                          ],
                         ),
                       ],
                     ),
-                    const SizedBox(height: 10),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _buildMovesLeftPanel(),
-                        const SizedBox(width: 8),
-                        Expanded(child: _buildObjectivePanel()),
-                      ],
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ),
@@ -301,11 +311,16 @@ class _GamePageState extends State<GamePage>
 
   // Builds the game board
   Widget _buildBoard() {
-    return Align(
-      alignment: MediaQuery.of(context).orientation == Orientation.portrait
-          ? const Alignment(0, 0.28)
-          : Alignment.center,
-      child: CrushBoard(level: widget.level),
+    final landscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+    return Padding(
+      padding: EdgeInsets.only(right: landscape ? 12 : 0),
+      child: Align(
+        alignment: MediaQuery.of(context).orientation == Orientation.portrait
+            ? const Alignment(0, 0.28)
+            : Alignment.centerRight,
+        child: CrushBoard(level: widget.level),
+      ),
     );
   }
 

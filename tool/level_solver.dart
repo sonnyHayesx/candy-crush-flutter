@@ -55,8 +55,9 @@ class HeadlessGame {
     final c = bloc.gameController;
     final Tile from = c.grid[move.row][move.col];
     if (move.tap) {
-      if (!from.canMove || !Tile.isBomb(from.type!))
+      if (!from.canMove || !Tile.isBomb(from.type!)) {
         throw StateError('Illegal tap');
+      }
       c.proceedWithExplosion(from, bloc);
     } else {
       final Tile to = c.grid[move.toRow!][move.toCol!];
@@ -67,11 +68,12 @@ class HeadlessGame {
       final two = c.getCombo(to.row, to.col);
       c.resolveCombo(one, bloc);
       c.resolveCombo(two, bloc);
-      if (bomb)
+      if (bomb) {
         c.proceedWithExplosion(
           Tile(row: from.row, col: from.col, type: from.type),
           bloc,
         );
+      }
     }
     final resolver = AnimationsResolver(gameBloc: bloc, level: c.level)
       ..resolve();
@@ -126,8 +128,9 @@ class HeadlessGame {
               : dr + dc <= 3;
           final Tile target = c.grid[rr][cc];
           if (hits &&
-              (Tile.isNormal(target.type!) || Tile.isBomb(target.type!)))
+              (Tile.isNormal(target.type!) || Tile.isBomb(target.type!))) {
             score += tileValue(target);
+          }
         }
       }
       return score;

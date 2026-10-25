@@ -1,4 +1,4 @@
-package com.sunnyHayesx.candyCrush
+package com.sunnyhayes.candyCrush
 
 import io.flutter.embedding.android.FlutterActivity
 import android.content.ActivityNotFoundException

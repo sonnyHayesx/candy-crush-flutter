@@ -123,7 +123,7 @@
     "source": "original campaign design",
     "family": 7,
     "recovery": false,
-    "rationale": "Practice silhouette 7 with chapter 2 collection pressure and terrain."
+    "rationale": "Introduce one stripe goal on open terrain with low color quotas and 30 moves."
   },
   {
     "level": 19,
@@ -388,8 +388,8 @@
     "level": 56,
     "source": "adapted legacy 4",
     "family": 5,
-    "recovery": true,
-    "rationale": "Recovery: reduced quotas, generous moves and uncluttered terrain."
+    "recovery": false,
+    "rationale": "Legacy terrain combination with relaxed quotas; not a terrain recovery level."
   },
   {
     "level": 57,
@@ -528,8 +528,8 @@
     "level": 76,
     "source": "adapted legacy 3",
     "family": 5,
-    "recovery": true,
-    "rationale": "Recovery: reduced quotas, generous moves and uncluttered terrain."
+    "recovery": false,
+    "rationale": "Legacy terrain combination with relaxed quotas; not a terrain recovery level."
   },
   {
     "level": 77,

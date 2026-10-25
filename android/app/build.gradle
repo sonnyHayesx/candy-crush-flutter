@@ -38,7 +38,7 @@ if (releasePropertiesFile.exists() && !releaseSigningReady) {
 }
 
 android {
-    namespace = "com.sunnyHayesx.candyCrush"
+    namespace = "com.sunnyhayes.candyCrush"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -48,7 +48,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.sunnyHayesx.candyCrush"
+        applicationId = "com.sunnyhayes.candyCrush"
         manifestPlaceholders += [admobAppId: "ca-app-pub-3940256099942544~3347511713"]
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.

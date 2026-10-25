@@ -4,6 +4,10 @@ import 'dart:io';
 // Deterministic authored campaign. Runtime pieces/refills remain random.
 // Run: dart run tool/generate_levels.dart
 void main() {
+  final balanceFile = File('tool/level_balance.json');
+  final balance = balanceFile.existsSync()
+      ? jsonDecode(balanceFile.readAsStringSync()) as Map<String, dynamic>
+      : <String, dynamic>{};
   final legacy =
       (jsonDecode(File('tool/legacy_levels.json').readAsStringSync())
               as Map<String, dynamic>)['levels']
@@ -74,16 +78,26 @@ void main() {
       remaining.remove(queue.first);
       while (queue.isNotEmpty) {
         final cell = queue.removeLast(), r = cell ~/ n, c = cell % n;
-        for (final next in [if (r > 0) cell - n, if (r < n - 1) cell + n,
-          if (c > 0) cell - 1, if (c < n - 1) cell + 1]) {
-          if (remaining.remove(next)) { component.add(next); queue.add(next); }
+        for (final next in [
+          if (r > 0) cell - n,
+          if (r < n - 1) cell + n,
+          if (c > 0) cell - 1,
+          if (c < n - 1) cell + 1,
+        ]) {
+          if (remaining.remove(next)) {
+            component.add(next);
+            queue.add(next);
+          }
         }
       }
       if (component.length > largest.length) largest = component;
     }
     for (var r = 0; r < n; r++) {
       for (var c = 0; c < n; c++) {
-        if ((grid[r][c] == '1' || grid[r][c] == '2') && !largest.contains(r * n + c)) grid[r][c] = 'X';
+        if ((grid[r][c] == '1' || grid[r][c] == '2') &&
+            !largest.contains(r * n + c)) {
+          grid[r][c] = 'X';
+        }
       }
     }
     final source = relocated[id];
@@ -101,8 +115,9 @@ void main() {
         : 3;
     var quota = id <= 5 ? 3 + id : 7 + chapter * 3 + beat;
     if (recovery) quota = (quota * .7).round();
-    if (source == 5)
+    if (source == 5) {
       quota = 10; // Original narrow cross has fewer legal options.
+    }
     final objectives = List.generate(
       count,
       (i) =>
@@ -110,7 +125,17 @@ void main() {
     );
     if (id >= 31 && !recovery && beat == 8) objectives.add('1;flare');
     if (id == 18) {
-      objectives..clear()..addAll(['6;blue', '6;red', '1;flare']);
+      objectives
+        ..clear()
+        ..addAll(['6;blue', '6;red', '1;flare']);
+    }
+    final factor =
+        (balance['$id']?['color_quota_factor'] as num?)?.toDouble() ?? 1.0;
+    for (var i = 0; i < objectives.length; i++) {
+      final parts = objectives[i].split(';');
+      if (parts[1] != 'flare') {
+        objectives[i] = '${(int.parse(parts[0]) * factor).ceil()};${parts[1]}';
+      }
     }
     final moves = id <= 5
         ? 24

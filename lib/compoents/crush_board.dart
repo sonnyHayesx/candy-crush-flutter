@@ -125,7 +125,12 @@ class _CrushBoardState extends State<CrushBoard> {
   Widget build(BuildContext context) {
     gameBloc = BlocProvider.of<GameBloc>(context)!.bloc;
     final Size screenSize = MediaQuery.of(context).size;
-    final double availableWidth = screenSize.width - 24;
+    // Landscape reserves a separate left column for moves and objectives.
+    final double availableWidth =
+        screenSize.width -
+        (MediaQuery.of(context).orientation == Orientation.landscape
+            ? 304
+            : 24);
     final double availableHeight =
         screenSize.height *
         (MediaQuery.of(context).orientation == Orientation.portrait

@@ -15,7 +15,7 @@ Production validation and the publisher handoff are documented in [RELEASE.md](R
 - `flutter test`
 - `flutter build apk --debug`
 
-The application ID is `com.sunnyHayesx.candyCrush`. Levels, best scores, daily rewards, current and longest streaks, recent reward history, glow, sound, and vibration preferences are stored locally with `shared_preferences`. Existing save keys remain in place; older streak data initializes the longest streak. The game needs no account or backend and remains playable without a network. It has optional AdMob banner and rewarded ads; there is no background music.
+The application ID is `com.sunnyhayes.candyCrush`. Levels, best scores, daily rewards, current and longest streaks, recent reward history, glow, sound, and vibration preferences are stored locally with `shared_preferences`. Existing save keys remain in place; older streak data initializes the longest streak. The game needs no account or backend and remains playable without a network. It has optional AdMob banner and rewarded ads; there is no background music.
 
 ## Local testing APK
 
@@ -66,7 +66,7 @@ For the confirmed all-ages audience, requests use AgeRestrictedTreatment.child a
 
 ## Android release
 
-The release variant is no longer signed with debug keys. For an existing app, use its authorized upload key; do not generate a replacement without an approved key-reset process. For a new app, arrange a private owner-controlled upload keystore. Copy [`android/key.properties.example`](android/key.properties.example) to `android/key.properties`, then fill in the real values and keep both the keystore and properties private. Without signing credentials, a bundle is not upload ready. Confirm that `com.sunnyHayesx.candyCrush` is an identifier you control and that the AdMob App ID belongs to this app.
+The release variant is no longer signed with debug keys. For an existing app, use its authorized upload key; do not generate a replacement without an approved key-reset process. For a new app, arrange a private owner-controlled upload keystore. Copy [`android/key.properties.example`](android/key.properties.example) to `android/key.properties`, then fill in the real values and keep both the keystore and properties private. Without signing credentials, a bundle is not upload ready. Confirm that `com.sunnyhayes.candyCrush` is an identifier you control and that the AdMob App ID belongs to this app.
 
 The installed Flutter 3.44.9 SDK supplies target API 36 through `flutter.targetSdkVersion`. Verify the built candidate's target SDK and current Play Console requirements before submission. Changing the Android application ID creates a separate app sandbox; progress from an app installed under an older ID cannot migrate automatically through `shared_preferences`.
 

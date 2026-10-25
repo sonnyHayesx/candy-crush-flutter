@@ -1,0 +1,502 @@
+{
+  "1": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 1.0,
+    "baseline_trace_replayed": true
+  },
+  "2": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 1.0,
+    "baseline_trace_replayed": true
+  },
+  "3": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 1.0,
+    "baseline_trace_replayed": true
+  },
+  "4": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 1.0,
+    "baseline_trace_replayed": true
+  },
+  "5": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.97,
+    "baseline_trace_replayed": true
+  },
+  "6": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 1.0,
+    "baseline_trace_replayed": true
+  },
+  "7": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 1.0,
+    "baseline_trace_replayed": true
+  },
+  "8": {
+    "color_quota_factor": 0.75,
+    "baseline_average_win_rate": 0.72,
+    "baseline_trace_replayed": true
+  },
+  "9": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.99,
+    "baseline_trace_replayed": true
+  },
+  "10": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 1.0,
+    "baseline_trace_replayed": true
+  },
+  "11": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 1.0,
+    "baseline_trace_replayed": true
+  },
+  "12": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 1.0,
+    "baseline_trace_replayed": true
+  },
+  "13": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 1.0,
+    "baseline_trace_replayed": true
+  },
+  "14": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 1.0,
+    "baseline_trace_replayed": true
+  },
+  "15": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.95,
+    "baseline_trace_replayed": true
+  },
+  "16": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 1.0,
+    "baseline_trace_replayed": true
+  },
+  "17": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.99,
+    "baseline_trace_replayed": true
+  },
+  "18": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 1.0,
+    "baseline_trace_replayed": true
+  },
+  "19": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 1.0,
+    "baseline_trace_replayed": true
+  },
+  "20": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.58,
+    "baseline_trace_replayed": true
+  },
+  "21": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 1.0,
+    "baseline_trace_replayed": true
+  },
+  "22": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 1.0,
+    "baseline_trace_replayed": true
+  },
+  "23": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 1.0,
+    "baseline_trace_replayed": true
+  },
+  "24": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.81,
+    "baseline_trace_replayed": true
+  },
+  "25": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.96,
+    "baseline_trace_replayed": true
+  },
+  "26": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 1.0,
+    "baseline_trace_replayed": true
+  },
+  "27": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.98,
+    "baseline_trace_replayed": true
+  },
+  "28": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 1.0,
+    "baseline_trace_replayed": true
+  },
+  "29": {
+    "color_quota_factor": 0.9,
+    "baseline_average_win_rate": 0.36,
+    "baseline_trace_replayed": true
+  },
+  "30": {
+    "color_quota_factor": 0.9,
+    "baseline_average_win_rate": 0.4,
+    "baseline_trace_replayed": true
+  },
+  "31": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 1.0,
+    "baseline_trace_replayed": true
+  },
+  "32": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 1.0,
+    "baseline_trace_replayed": true
+  },
+  "33": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.6,
+    "baseline_trace_replayed": true
+  },
+  "34": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.7,
+    "baseline_trace_replayed": true
+  },
+  "35": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.9,
+    "baseline_trace_replayed": true
+  },
+  "36": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 1.0,
+    "baseline_trace_replayed": true
+  },
+  "37": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.97,
+    "baseline_trace_replayed": true
+  },
+  "38": {
+    "color_quota_factor": 0.8,
+    "baseline_average_win_rate": 0.14,
+    "baseline_trace_replayed": true
+  },
+  "39": {
+    "color_quota_factor": 0.9,
+    "baseline_average_win_rate": 0.36,
+    "baseline_trace_replayed": true
+  },
+  "40": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.57,
+    "baseline_trace_replayed": true
+  },
+  "41": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 1.0,
+    "baseline_trace_replayed": true
+  },
+  "42": {
+    "color_quota_factor": 0.8,
+    "baseline_average_win_rate": 0.1,
+    "baseline_trace_replayed": true
+  },
+  "43": {
+    "color_quota_factor": 0.9,
+    "baseline_average_win_rate": 0.4,
+    "baseline_trace_replayed": true
+  },
+  "44": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.87,
+    "baseline_trace_replayed": true
+  },
+  "45": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.81,
+    "baseline_trace_replayed": true
+  },
+  "46": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 1.0,
+    "baseline_trace_replayed": true
+  },
+  "47": {
+    "color_quota_factor": 0.65,
+    "baseline_average_win_rate": 0.06,
+    "baseline_trace_replayed": true
+  },
+  "48": {
+    "color_quota_factor": 0.65,
+    "baseline_average_win_rate": 0.08,
+    "baseline_trace_replayed": true
+  },
+  "49": {
+    "color_quota_factor": 0.8,
+    "baseline_average_win_rate": 0.32,
+    "baseline_trace_replayed": true
+  },
+  "50": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.5,
+    "baseline_trace_replayed": true
+  },
+  "51": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.91,
+    "baseline_trace_replayed": true
+  },
+  "52": {
+    "color_quota_factor": 0.9,
+    "baseline_average_win_rate": 0.38,
+    "baseline_trace_replayed": true
+  },
+  "53": {
+    "color_quota_factor": 0.9,
+    "baseline_average_win_rate": 0.46,
+    "baseline_trace_replayed": true
+  },
+  "54": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.8,
+    "baseline_trace_replayed": true
+  },
+  "55": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.92,
+    "baseline_trace_replayed": true
+  },
+  "56": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 1.0,
+    "baseline_trace_replayed": true
+  },
+  "57": {
+    "color_quota_factor": 0.8,
+    "baseline_average_win_rate": 0.13,
+    "baseline_trace_replayed": true
+  },
+  "58": {
+    "color_quota_factor": 0.8,
+    "baseline_average_win_rate": 0.15,
+    "baseline_trace_replayed": true
+  },
+  "59": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.5,
+    "baseline_trace_replayed": true
+  },
+  "60": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.56,
+    "baseline_trace_replayed": true
+  },
+  "61": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.94,
+    "baseline_trace_replayed": true
+  },
+  "62": {
+    "color_quota_factor": 0.8,
+    "baseline_average_win_rate": 0.32,
+    "baseline_trace_replayed": true
+  },
+  "63": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.58,
+    "baseline_trace_replayed": true
+  },
+  "64": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.82,
+    "baseline_trace_replayed": true
+  },
+  "65": {
+    "color_quota_factor": 0.55,
+    "baseline_average_win_rate": 0.0,
+    "baseline_trace_replayed": false
+  },
+  "66": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.69,
+    "baseline_trace_replayed": true
+  },
+  "67": {
+    "color_quota_factor": 0.8,
+    "baseline_average_win_rate": 0.18,
+    "baseline_trace_replayed": true
+  },
+  "68": {
+    "color_quota_factor": 0.9,
+    "baseline_average_win_rate": 0.35,
+    "baseline_trace_replayed": true
+  },
+  "69": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.56,
+    "baseline_trace_replayed": true
+  },
+  "70": {
+    "color_quota_factor": 0.55,
+    "baseline_average_win_rate": 0.0,
+    "baseline_trace_replayed": false
+  },
+  "71": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.9,
+    "baseline_trace_replayed": true
+  },
+  "72": {
+    "color_quota_factor": 0.9,
+    "baseline_average_win_rate": 0.43,
+    "baseline_trace_replayed": true
+  },
+  "73": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.7,
+    "baseline_trace_replayed": true
+  },
+  "74": {
+    "color_quota_factor": 0.55,
+    "baseline_average_win_rate": 0.0,
+    "baseline_trace_replayed": true
+  },
+  "75": {
+    "color_quota_factor": 0.55,
+    "baseline_average_win_rate": 0.0,
+    "baseline_trace_replayed": false
+  },
+  "76": {
+    "color_quota_factor": 0.9,
+    "baseline_average_win_rate": 0.36,
+    "baseline_trace_replayed": true
+  },
+  "77": {
+    "color_quota_factor": 0.8,
+    "baseline_average_win_rate": 0.27,
+    "baseline_trace_replayed": true
+  },
+  "78": {
+    "color_quota_factor": 0.9,
+    "baseline_average_win_rate": 0.44,
+    "baseline_trace_replayed": true
+  },
+  "79": {
+    "color_quota_factor": 0.55,
+    "baseline_average_win_rate": 0.0,
+    "baseline_trace_replayed": false
+  },
+  "80": {
+    "color_quota_factor": 0.55,
+    "baseline_average_win_rate": 0.0,
+    "baseline_trace_replayed": false
+  },
+  "81": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.99,
+    "baseline_trace_replayed": true
+  },
+  "82": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.53,
+    "baseline_trace_replayed": true
+  },
+  "83": {
+    "color_quota_factor": 0.55,
+    "baseline_average_win_rate": 0.0,
+    "baseline_trace_replayed": false
+  },
+  "84": {
+    "color_quota_factor": 0.55,
+    "baseline_average_win_rate": 0.0,
+    "baseline_trace_replayed": true
+  },
+  "85": {
+    "color_quota_factor": 0.65,
+    "baseline_average_win_rate": 0.01,
+    "baseline_trace_replayed": true
+  },
+  "86": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.83,
+    "baseline_trace_replayed": true
+  },
+  "87": {
+    "color_quota_factor": 0.8,
+    "baseline_average_win_rate": 0.32,
+    "baseline_trace_replayed": true
+  },
+  "88": {
+    "color_quota_factor": 0.55,
+    "baseline_average_win_rate": 0.0,
+    "baseline_trace_replayed": false
+  },
+  "89": {
+    "color_quota_factor": 0.55,
+    "baseline_average_win_rate": 0.0,
+    "baseline_trace_replayed": false
+  },
+  "90": {
+    "color_quota_factor": 0.55,
+    "baseline_average_win_rate": 0.0,
+    "baseline_trace_replayed": true
+  },
+  "91": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.97,
+    "baseline_trace_replayed": true
+  },
+  "92": {
+    "color_quota_factor": 0.55,
+    "baseline_average_win_rate": 0.0,
+    "baseline_trace_replayed": false
+  },
+  "93": {
+    "color_quota_factor": 0.55,
+    "baseline_average_win_rate": 0.0,
+    "baseline_trace_replayed": false
+  },
+  "94": {
+    "color_quota_factor": 0.65,
+    "baseline_average_win_rate": 0.02,
+    "baseline_trace_replayed": true
+  },
+  "95": {
+    "color_quota_factor": 0.65,
+    "baseline_average_win_rate": 0.02,
+    "baseline_trace_replayed": true
+  },
+  "96": {
+    "color_quota_factor": 1.0,
+    "baseline_average_win_rate": 0.94,
+    "baseline_trace_replayed": true
+  },
+  "97": {
+    "color_quota_factor": 0.55,
+    "baseline_average_win_rate": 0.0,
+    "baseline_trace_replayed": false
+  },
+  "98": {
+    "color_quota_factor": 0.55,
+    "baseline_average_win_rate": 0.0,
+    "baseline_trace_replayed": false
+  },
+  "99": {
+    "color_quota_factor": 0.55,
+    "baseline_average_win_rate": 0.0,
+    "baseline_trace_replayed": false
+  },
+  "100": {
+    "color_quota_factor": 0.55,
+    "baseline_average_win_rate": 0.0,
+    "baseline_trace_replayed": true
+  }
+}

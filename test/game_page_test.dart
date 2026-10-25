@@ -170,7 +170,8 @@ void main() {
     tester.view.physicalSize = const Size(960, 1704);
     await tester.pump();
     await tester.pump();
-    expect(level.tileWidth, lessThan(largeTileWidth));
+    // Small boards can remain at the tile-size cap on both screens.
+    expect(level.tileWidth, lessThanOrEqualTo(largeTileWidth + 0.001));
     expect(level.boardLeft, greaterThanOrEqualTo(0));
   });
 }

@@ -23,12 +23,20 @@ from four pieces of one color to eight and ten pieces of two colors. Actual samp
 completion rates and winning traces are recorded separately in the validation report;
 ease and enjoyment still need human playtesting.
 
-Later chapters combine color collection, frozen cells (from 21), optional stripe
-objectives (from 39), and permanent walls (from 41). Chapter openings and sixth
+Later chapters combine color collection, frozen cells (after 21), a generous stripe
+goal tutorial at 18 and later stripe goals from 39, and permanent walls (after 41). Chapter openings and sixth
 positions provide recovery beats with lower quotas, more moves and simpler terrain.
-Level 76 is an explicit exception: its retained legacy geometry contains obstacles.
+Levels 56 and 76 are explicit exceptions: their retained legacy geometry contains obstacles.
 These are authored pacing intentions; measured difficulty is the evidence used to
 assess them, rather than assuming level numbers prove a smooth curve.
+
+The initial 30,000-trial pass found no winning witness for 13 later levels.
+`tool/level_balance.json` preserves that baseline's per-level average-policy rates
+and the explicit color-quota corrections. The generator applies these corrections
+without altering the first five levels or terrain. Level 8 receives a separate
+introductory quota reduction. Required stripe counts are never rounded away.
+The final validation reruns the same seeds, so these results are calibration
+evidence rather than an independent estimate of human success.
 
 ## Existing player saves
 

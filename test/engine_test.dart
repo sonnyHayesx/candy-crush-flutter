@@ -9,6 +9,21 @@ import 'package:prismleaf_vale/model/combo.dart';
 import 'package:prismleaf_vale/model/swap.dart';
 import 'package:prismleaf_vale/model/tile.dart';
 
+GameBloc fixture({bool frozen = false}) => GameBloc.simulation({
+  'level': 1,
+  'rows': 10,
+  'cols': 10,
+  'moves': 24,
+  'grid': List.generate(
+    10,
+    (r) => List.generate(
+      10,
+      (c) => frozen && r == 3 && c == 4 ? '2' : '1',
+    ).join(','),
+  ),
+  'objective': ['4;blue', '8;red', '1;flare'],
+}, 42);
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -77,9 +92,8 @@ void main() {
   });
 
   test('a bomb chains to another bomb in the same row', () async {
-    final bloc = GameBloc();
+    final bloc = fixture();
     addTearDown(bloc.dispose);
-    await bloc.setLevel(1);
     final grid = bloc.gameController.grid;
     for (var col = 0; col < 10; col++) {
       grid[2][col].type = TileType.empty;
@@ -94,9 +108,9 @@ void main() {
   });
 
   test('frozen pieces cannot be swapped and thaw on an explosion', () async {
-    final bloc = GameBloc();
+    final bloc = fixture(frozen: true);
     addTearDown(bloc.dispose);
-    final level = await bloc.setLevel(3);
+    final level = bloc.gameController.level;
     final grid = bloc.gameController.grid;
     expect(Tile(type: TileType.empty).canMove, isFalse);
     for (var row = 0; row < level.numberOfRows; row++) {
@@ -111,13 +125,13 @@ void main() {
         return;
       }
     }
-    fail('Level 3 should contain a frozen piece');
+    fail('Fixture should contain a frozen piece');
   });
 
   test('gravity resolves a new match and refills the cleared cells', () async {
-    final bloc = GameBloc();
+    final bloc = fixture();
     addTearDown(bloc.dispose);
-    final level = await bloc.setLevel(1);
+    final level = bloc.gameController.level;
     final grid = bloc.gameController.grid;
     const colors = [
       TileType.red,

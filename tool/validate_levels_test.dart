@@ -5,8 +5,9 @@ import 'level_solver.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  test('validate campaign using production gameplay', () {
+  test('validate campaign using production gameplay', () async {
     const trials = int.fromEnvironment('TRIALS', defaultValue: 100);
+    const seedBase = int.fromEnvironment('SEED_BASE', defaultValue: 100000);
     const first = int.fromEnvironment('FIRST', defaultValue: 1);
     const last = int.fromEnvironment('LAST', defaultValue: 100);
     const output = String.fromEnvironment(
@@ -26,11 +27,17 @@ void main() {
       for (final agent in ['beginner', 'average', 'strategic']) {
         final runs = <Map<String, dynamic>>[];
         for (var n = 0; n < trials; n++) {
-          final seed = 100000 + d['level'] as int;
+          if (n % 10 == 0) {
+            // ignore: avoid_print
+            print('Progress level ${d['level']} $agent trial $n');
+            await Future<void>.delayed(Duration.zero);
+          }
+          final seed = seedBase + d['level'] as int;
           final run = runTrial(d, seed + n * 1009, agent);
           runs.add(run);
-          if (run['won'] == true && witness == null)
+          if (run['won'] == true && witness == null) {
             witness = {...run, 'agent': agent};
+          }
         }
         final wins = runs.where((r) => r['won'] == true).toList();
         agents[agent] = {
@@ -75,7 +82,8 @@ void main() {
         const JsonEncoder.withIndent('  ').convert({
           'method':
               'visible-board one-ply heuristic search, epsilon policies; actual production controller and animation resolver',
-          'seed_formula': '100000 + level_id + trial_index * 1009',
+          'seed_formula': '$seedBase + level_id + trial_index * 1009',
+          'dart_runtime': Platform.version,
           'coordinate_convention':
               'zero-based [row,col,toRow,toCol] swap, [row,col] tap; row zero bottom',
           'assumptions': [
